@@ -1,9 +1,12 @@
 import React from 'react';
+import { Header } from "./organisms/Header";
+import { ResetStyle } from "./styles/reset";
 
 function App() {
   return (
     <div>
-      Top page
+      <ResetStyle />
+      <Header />
     </div>
   );
 }
