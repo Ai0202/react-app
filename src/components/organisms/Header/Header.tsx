@@ -2,6 +2,7 @@ import React from "react";
 import { AppBar, Toolbar, IconButton, Typography } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import MenuIcon from "@material-ui/icons/Menu";
+import { Img } from "./styles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,17 +22,16 @@ export const Header:React.FC = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Portfolio
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <MenuIcon />
+        </IconButton>
+        <Img src="images/kingyosukui.png" alt="logo" />
+        <Typography variant="h6" className={classes.title}>
+          Kingyosukui
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 }

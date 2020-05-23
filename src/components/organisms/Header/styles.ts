@@ -10,3 +10,8 @@ export const HeaderComponent = styled.header`
   box-sizing: border-box;
   z-index: 10;
 `
+
+export const Img = styled.img`
+  height: 40px;
+  margin-right: 5px;
+`
