@@ -60,7 +60,7 @@ export const DrawerComponent = () => {
     >
       <List>
         {menus.map((menu, index) => (
-          <Link key={menu.name} className={classes.navLink} to={menu.path} >
+          <Link key={index} className={classes.navLink} to={menu.path} >
             <ListItem button>
               <ListItemIcon>
                 {(() => {
