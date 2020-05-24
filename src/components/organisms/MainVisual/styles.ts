@@ -15,7 +15,7 @@ export const Img = styled.div`
 
 export const Title = styled.h1`
   font-size: 6rem;
-  color: #000;
+  color: #00011D;
   letter-spacing: 6px;
   font-family: 'Rowo Typeface';
   transform: rotate(-30deg);
