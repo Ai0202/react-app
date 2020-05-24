@@ -1,18 +1,26 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import HomeIcon from '@material-ui/icons/Home';
+import GroupIcon from '@material-ui/icons/Group';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from "@material-ui/icons/Menu";
+import InfoIcon from '@material-ui/icons/Info';
+import AnnouncementIcon from '@material-ui/icons/Announcement';
 
 const useStyles = makeStyles({
   list: {
     width: 250,
   },
+  navLink: {
+    color: '#00011D',
+    textDecoration: 'none'
+  }
 });
 
 export const DrawerComponent = () => {
@@ -20,6 +28,14 @@ export const DrawerComponent = () => {
   const [state, setState] = React.useState({
     drawer: false,
   });
+
+  const menus = [
+    { name: 'Home', path: '/', icon: 'home' },
+    { name: 'Member', path: '/members', icon: 'member' },
+    { name: 'About us', path: '/aboutus', icon: 'about' },
+    { name: 'News', path: '/news', icon: 'news' },
+    { name: 'contact', path: '/contact', icon: 'contact' },
+  ];
 
   const toggleDrawer = (isOpen: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
@@ -43,11 +59,24 @@ export const DrawerComponent = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {['Member', 'About us', 'History', 'Contact'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
+        {menus.map((menu, index) => (
+          <Link key={menu.name} className={classes.navLink} to={menu.path} >
+            <ListItem button>
+              <ListItemIcon>
+                {(() => {
+                  switch (menu.icon) {
+                    case 'home': return <HomeIcon />
+                    case 'member': return <GroupIcon />
+                    case 'about': return <InfoIcon />
+                    case 'news': return <AnnouncementIcon />
+                    case 'contact': return <MailIcon />
+                    default: return ;
+                  }
+                })()}
+              </ListItemIcon>
+              <ListItemText primary={menu.name} />
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>
