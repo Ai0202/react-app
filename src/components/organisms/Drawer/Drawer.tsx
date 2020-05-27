@@ -13,6 +13,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import InfoIcon from '@material-ui/icons/Info';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 
+// TODO index.js:1 Warning: findDOMNode is deprecated in StrictMode. findDOMNode was passed an instance of Transition
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -47,7 +48,6 @@ export const DrawerComponent = () => {
     ) {
       return;
     }
-
     setState({ ...state, 'drawer': isOpen });
   };
 
