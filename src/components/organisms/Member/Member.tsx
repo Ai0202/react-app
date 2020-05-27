@@ -18,7 +18,15 @@ const useStyles = makeStyles({
   },
 });
 
-export const Member: React.FC = () => {
+type Props = {
+  member: {
+    name: string;
+    description: string;
+    image: string;
+  }
+}
+
+export const Member: React.FC<Props> = ({member}: Props) => {
   const classes = useStyles();
   
   return (
@@ -26,21 +34,16 @@ export const Member: React.FC = () => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/images/profile_3.jpg"
+          image={member.image}
           title="Atsushi Ikeda"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            <CardTitle name="Atsushi" />
+            <CardTitle name={member.name} />
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             <CardDetail 
-              description="
-                日本を代表するPG。
-                シャキール・オニールを彷彿させるパワー、
-                全盛期のアレン・アイバーソンと見紛うほどのドライブ、
-                ステファン・カリーにも負けずとも劣らない3ポイント、、
-                そんな選手だったらいいな。"
+              description={member.description}
             />
           </Typography>
         </CardContent>

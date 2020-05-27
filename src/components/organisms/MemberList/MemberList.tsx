@@ -21,6 +21,21 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const members = [
+  { 
+    name: "Atsushi", 
+    description: 
+      "日本を代表するPG。シャキール・オニールを彷彿させるパワー、全盛期のアレン・アイバーソンと見紛うほどのドライブ、 ステファン・カリーにも負けずとも劣らない3ポイント、、 そんな選手だったらいいな。",
+    image: "/images/profile_3.jpg"
+  },
+  { 
+    name: "ShoSho", 
+    description: 
+      "フィリピンのギャングスター。バスケが得意",
+    image: "/images/profile_3.jpg"
+  },
+]
+
 export const MemberList: React.FC = () => {
   const classes = useStyles();
 
@@ -28,13 +43,13 @@ export const MemberList: React.FC = () => {
     <Wrapper>
       <Grid container className={classes.root} spacing={4}>
         <Grid item xs={12}>
-          {<PageTitle title="Member" />}
+          <PageTitle title="Member" />
         </Grid>
         <Grid item xs={12}>
           <Grid container justify="center" spacing={4}>
-            {[0, 1, 2].map((value) => (
-              <Grid key={value} item>
-                <Member />
+            {members.map((v, i) => (
+              <Grid key={i} item>
+                <Member member={v} />
               </Grid>
             ))}
           </Grid>
