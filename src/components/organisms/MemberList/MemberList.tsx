@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Grid, { GridSpacing } from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid';
 
 import { Wrapper } from "./styles";
 import { Member } from "../Member/Member";

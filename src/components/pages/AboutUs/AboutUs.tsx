@@ -1,7 +1,12 @@
 import React from "react";
+import { Header } from "../../organisms/Header";
+import { AboutDescription } from "../../organisms/AboutDescription";
 
 export const AboutUs = () => {
   return (
-    <div>About us</div>
+    <div>
+      <Header />
+      <AboutDescription />
+    </div>
   )
 }
