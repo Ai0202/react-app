@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+
+import { firestore } from "../../../services/Firebase";
 
 import { Wrapper } from "./styles";
 import { Member } from "../Member/Member";
@@ -21,23 +23,37 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const members = [
-  { 
-    name: "Atsushi", 
-    description: 
-      "日本を代表するPG。シャキール・オニールを彷彿させるパワー、全盛期のアレン・アイバーソンと見紛うほどのドライブ、 ステファン・カリーにも負けずとも劣らない3ポイント、、 そんな選手だったらいいな。",
-    image: "/images/profile_3.jpg"
-  },
-  { 
-    name: "ShoSho", 
-    description: 
-      "フィリピンのギャングスター。バスケが得意",
-    image: "/images/profile_3.jpg"
-  },
-]
+type Member = {
+  name: string;
+  description: string;
+  number: number;
+  image: string;
+}
 
+const INITIAL_STATE: Member = {
+  name: '******',
+  description: '***********************',
+  number: 0,
+  image: '/images/default.png',
+};
+
+// TODO ローディング
 export const MemberList: React.FC = () => {
   const classes = useStyles();
+  let [members, setMember] = useState([INITIAL_STATE]);
+
+  useEffect(() => {
+    const tmpMembers: any[] = [];
+    firestore.collection('members')
+      .get()
+      .then(res => {
+        res.forEach(member => {
+          tmpMembers.push(member.data());
+        })
+        setMember(tmpMembers);
+      });
+  }, []);
+  
 
   return (
     <Wrapper>
