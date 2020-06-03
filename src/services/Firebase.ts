@@ -14,9 +14,9 @@ const config = {
 const firebaseApp = firebase.initializeApp(config);
 export const firestore = firebaseApp.firestore();
 
-export const getMembers = () => {
+export const getMembers = async () => {
   const members: any[] = [];
-  firestore.collection('members')
+  await firestore.collection('members')
     .get()
     .then(res => {
       res.forEach(member => {
