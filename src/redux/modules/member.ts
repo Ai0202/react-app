@@ -1,3 +1,6 @@
+// import { steps } from "redux-effects-steps";
+// import { fetchrRead, fetchrCreate } from "redux-effects-fetchr";
+
 // Action Types
 const GET_MEMBERS_REQUEST = "members/request";
 const GET_MEMBERS_SUCCESS = "members/success";
@@ -22,6 +25,15 @@ type Action =
   | MembersSuccess
   | MembersFail
 
+export function getMembers() {
+  // return steps(
+  //   getMembersRequest(),
+  //   ({ payload }) => fetcherRead(payload),
+  //   [getMembersSuccess, getMembersFail]
+  // )
+  return getMembersRequest();
+}
+
 // Action Creators
 export function getMembersRequest(): MembersRequest {
   return {
@@ -29,10 +41,12 @@ export function getMembersRequest(): MembersRequest {
   };
 }
 
-export function getMembersSuccess(res: any): MembersSuccess {
+export function getMembersSuccess(members: any): MembersSuccess {
   return {
     type: GET_MEMBERS_SUCCESS,
-    payload: res,
+    payload: {
+      members
+    }
   };
 }
 
@@ -54,16 +68,25 @@ type Members = {
 export type State = {
   members: Members[];
   loading: boolean;
+  loaded: boolean;
   error?: boolean;
 };
 
 export const INITIAL_STATE = {
-  members: [],
-  loading: false,
+  members: [
+    {
+      name: '******',
+      description: '***********************',
+      number: 0,
+      image: '/images/default.png',
+    }
+  ],
+  loading: true,
+  loaded: false,
 };
 
 // Reducer
-export default function (state: State = INITIAL_STATE, action: Action): State {
+export function reducer(state: State = INITIAL_STATE, action: Action): State {
   switch (action.type) {
     case GET_MEMBERS_REQUEST: {
       return {
@@ -71,14 +94,12 @@ export default function (state: State = INITIAL_STATE, action: Action): State {
         loading: true,
       }
     }
-    case GET_MEMBERS_SUCCESS: {
-      const {
-        payload: { data },
-      } = action;
+    case GET_MEMBERS_SUCCESS: { 
       return {
         ...state,
         loading: false,
-        members: data,
+        loaded: true,
+        members: action.payload.members,
       }
     }
     case GET_MEMBERS_FAIL: {

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-
-import { firestore } from "../../../services/Firebase";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { State } from "../../../redux/modules/member";
+import { getMembers } from "../../../redux/modules/member";
 
 import { Wrapper } from "./styles";
 import { Member } from "../Member/Member";
@@ -30,31 +32,17 @@ type Member = {
   image: string;
 }
 
-const INITIAL_STATE: Member = {
-  name: '******',
-  description: '***********************',
-  number: 0,
-  image: '/images/default.png',
-};
+export type Props = {
+  members: any[];
+  loading: boolean;
+  loaded: boolean;
+}
 
 // TODO ローディング
-export const MemberList: React.FC = () => {
+const MemberList: React.FC<Props> = (props) => {
+
   const classes = useStyles();
-  let [members, setMember] = useState([INITIAL_STATE]);
-
-  useEffect(() => {
-    const tmpMembers: any[] = [];
-    firestore.collection('members')
-      .get()
-      .then(res => {
-        res.forEach(member => {
-          tmpMembers.push(member.data());
-        })
-        setMember(tmpMembers);
-      });
-  }, []);
   
-
   return (
     <Wrapper>
       <Grid container className={classes.root} spacing={4}>
@@ -63,7 +51,7 @@ export const MemberList: React.FC = () => {
         </Grid>
         <Grid item xs={12}>
           <Grid container justify="center" spacing={4}>
-            {members.map((v, i) => (
+            {props.members.map((v, i) => (
               <Grid key={i} item>
                 <Member member={v} />
               </Grid>
@@ -74,3 +62,18 @@ export const MemberList: React.FC = () => {
     </Wrapper>
   )
 }
+
+const mapStateToProps = (state: any) => {  
+  return {
+    members: state.member.members,
+    loading: state.member.loading,
+    loaded: state.member.loaded,
+  }
+}
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    handleClick: () => dispatch(getMembers()),
+  }
+}
+
+export default connect(mapStateToProps ,mapDispatchToProps)(MemberList);

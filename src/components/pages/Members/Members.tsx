@@ -1,5 +1,5 @@
 import React from 'react';
-import { MemberList } from "../../organisms/MemberList";
+import MemberList from "../../organisms/MemberList";
 import { Header } from "../../organisms/Header";
 
 

@@ -13,3 +13,16 @@ const config = {
 };
 const firebaseApp = firebase.initializeApp(config);
 export const firestore = firebaseApp.firestore();
+
+export const getMembers = () => {
+  const members: any[] = [];
+  firestore.collection('members')
+    .get()
+    .then(res => {
+      res.forEach(member => {
+        members.push(member.data());
+      })
+    });
+  
+  return members;
+}

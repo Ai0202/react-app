@@ -1,1 +1,3 @@
-export { MemberList } from "./MemberList";
+import MemberList from "./MemberList";
+
+export default MemberList
