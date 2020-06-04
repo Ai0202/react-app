@@ -28,7 +28,7 @@ export const Header:React.FC = () => {
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           <Drawer />
         </IconButton>
-        <Img src="images/kingyosukui.png" alt="logo" />
+        <Img src="/images/kingyosukui.png" alt="logo" />
       </Toolbar>
     </AppBar>
   );
