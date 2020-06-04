@@ -1,4 +1,4 @@
-import { call, select, put, takeLatest } from 'redux-saga/effects'
+import { call, put } from 'redux-saga/effects'
 import { getMembers as fetchMembers } from "../services/Firebase";
 import { getMembersSuccess } from "../redux/modules/member";
 
