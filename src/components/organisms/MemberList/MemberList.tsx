@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { State } from "../../../redux/modules/member";
-import { getMembers } from "../../../redux/modules/member";
+// import { Dispatch } from "redux";
+// TODO あとで型指定に使用したい
+// import { State } from "../../../redux/modules/member";
+
+// TODO redux-sagaで勝手にどのページでも実行されるのを改善したい
+// import { getMembers } from "../../../redux/modules/member";
 
 import { Wrapper } from "./styles";
 import { Member } from "../Member/Member";
@@ -70,10 +73,5 @@ const mapStateToProps = (state: any) => {
     loaded: state.member.loaded,
   }
 }
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    handleClick: () => dispatch(getMembers()),
-  }
-}
 
-export default connect(mapStateToProps ,mapDispatchToProps)(MemberList);
+export default connect(mapStateToProps)(MemberList);
