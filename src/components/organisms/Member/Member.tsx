@@ -1,13 +1,13 @@
-import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import React from "react"
+import { makeStyles } from "@material-ui/core/styles"
+import Card from "@material-ui/core/Card"
+import CardActionArea from "@material-ui/core/CardActionArea"
+import CardContent from "@material-ui/core/CardContent"
+import CardMedia from "@material-ui/core/CardMedia"
+import Typography from "@material-ui/core/Typography"
 
-import { CardTitle } from "../../atoms/CardTitle";
-import { CardDetail } from "../../atoms/CardDetail";
+import { CardTitle } from "../../atoms/CardTitle"
+import { CardDetail } from "../../atoms/CardDetail"
 
 const useStyles = makeStyles({
   root: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   media: {
     height: 200,
   },
-});
+})
 
 type Props = {
   member: {
@@ -27,7 +27,7 @@ type Props = {
 }
 
 export const Member: React.FC<Props> = ({member}: Props) => {
-  const classes = useStyles();
+  const classes = useStyles()
   
   return (
     <Card className={classes.root}>

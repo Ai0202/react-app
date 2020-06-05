@@ -1,12 +1,12 @@
-import React from "react";
-import { Text } from "./styles";
+import React from "react"
+import { Text } from "./styles"
 
 type Props = {
-  name: String;
+  name: string;
 }
 
 export const CardTitle: React.FC<Props> = ({name}: Props) => {
   return (
-      <Text>{name}</Text>
+    <Text>{name}</Text>
   )
 }

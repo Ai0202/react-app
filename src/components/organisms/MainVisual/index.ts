@@ -1,1 +1,1 @@
-export { MainVisual } from './MainVisual';
+export { MainVisual } from "./MainVisual"

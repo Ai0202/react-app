@@ -1,1 +1,1 @@
-export { Routes } from './main'
+export { Routes } from "./main"

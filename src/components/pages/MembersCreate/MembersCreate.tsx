@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
+import React, { useState } from "react"
+import styled from "styled-components"
+import { connect } from "react-redux"
+import { Dispatch } from "redux"
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
-import Input from '@material-ui/core/Input';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import CardHeader from "@material-ui/core/CardHeader"
+import CardActions from "@material-ui/core/CardActions"
+import Avatar from "@material-ui/core/Avatar"
+import Input from "@material-ui/core/Input"
+import TextField from "@material-ui/core/TextField"
+import Button from "@material-ui/core/Button"
+import Box from "@material-ui/core/Box"
 
-import { postMember } from "../../../redux/modules/member";
+import { postMember } from "../../../redux/modules/member"
 
 const Wrapper = styled.section`
   max-width: 80%;
@@ -25,13 +25,13 @@ const Wrapper = styled.section`
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      '& > *': {
+      "& > *": {
         margin: theme.spacing(1),
-        width: '25ch',
+        width: "25ch",
       },
     },
   }),
-);
+)
 
 type Props = {
   registerMember: Function;
@@ -39,19 +39,19 @@ type Props = {
 }
 
 const MembersCreate: React.FC<Props> = (props: any) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  let [member, setMember] = useState({
+  const [member, setMember] = useState({
     name: "",
     description: "",
     number: "",
-  });
+  })
 
   // すべての入力フォームに対応する
   const handleChange = (e: any) => {
-    const name = e.target.value;
-    const description = "";
-    const number = "";
+    const name = e.target.value
+    const description = ""
+    const number = ""
 
     setMember({ name, description, number })
   }
@@ -64,11 +64,11 @@ const MembersCreate: React.FC<Props> = (props: any) => {
           avatar={
             <Avatar aria-label="recipe">
               K
-          </Avatar>
+            </Avatar>
           }
         />
         <form onSubmit={e => {
-          e.preventDefault();
+          e.preventDefault()
           console.log(member)
           props.registerMember(member)
         }}
@@ -103,20 +103,20 @@ const MembersCreate: React.FC<Props> = (props: any) => {
               type="file"
             />
           </CardContent>
-            <Box
-              display="flex"
-              justifyContent="flex-end"
-              >
-              <CardActions>
-                <Button
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+          >
+            <CardActions>
+              <Button
                 variant="contained"
                 color="primary"
                 type="submit"
-                >
+              >
                   登録
-                </Button>
-              </CardActions>
-            </Box>
+              </Button>
+            </CardActions>
+          </Box>
         </form>
       </Card>
     </Wrapper>

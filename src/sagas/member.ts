@@ -1,15 +1,15 @@
-import { call, put } from 'redux-saga/effects'
-import { getMembers as fetchMembers } from "../services/Firebase";
-import { getMembersSuccess } from "../redux/modules/member";
+import { call, put } from "redux-saga/effects"
+import { getMembers as fetchMembers } from "../services/Firebase"
+import { getMembersSuccess } from "../redux/modules/member"
 
 export function* getMembers() {
   try {
     // firebaseからデータ取得
-    const members = yield call(fetchMembers);
+    const members = yield call(fetchMembers)
 
     // actionを実行
-    yield put(getMembersSuccess(members));
+    yield put(getMembersSuccess(members))
   } catch (e) {
-    console.log('error');
+    console.log("error")
   }
 }

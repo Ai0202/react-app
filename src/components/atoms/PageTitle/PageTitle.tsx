@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 
 type Props = {
-  title: String;
+  title: string;
 }
 
 const Title = styled.h2`

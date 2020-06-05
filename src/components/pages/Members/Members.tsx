@@ -1,5 +1,5 @@
-import React from 'react';
-import MemberList from "../../organisms/MemberList";
+import React from "react"
+import MemberList from "../../organisms/MemberList"
 
 
 export const Members: React.FC = () => {

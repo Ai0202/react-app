@@ -2,12 +2,12 @@
 // import { fetchrRead, fetchrCreate } from "redux-effects-fetchr";
 
 // Action Types
-const GET_MEMBERS_REQUEST = "members/request";
-const GET_MEMBERS_SUCCESS = "members/success";
-const GET_MEMBERS_FAIL = "members/fail";
-const POST_MEMBER_REQUEST = "member/post/request";
-const POST_MEMBER_SUCCESS = "member/post/success";
-const POST_MEMBER_FAIL = "member/post/fail";
+const GET_MEMBERS_REQUEST = "members/request"
+const GET_MEMBERS_SUCCESS = "members/success"
+const GET_MEMBERS_FAIL = "members/fail"
+const POST_MEMBER_REQUEST = "member/post/request"
+const POST_MEMBER_SUCCESS = "member/post/success"
+const POST_MEMBER_FAIL = "member/post/fail"
 
 type MembersRequest = {
   type: typeof GET_MEMBERS_REQUEST;
@@ -65,14 +65,14 @@ export function getMembers() {
   //   ({ payload }) => fetcherRead(payload),
   //   [getMembersSuccess, getMembersFail]
   // )
-  return getMembersRequest();
+  return getMembersRequest()
 }
 
 // Action Creators
 export function getMembersRequest(): MembersRequest {
   return {
     type: GET_MEMBERS_REQUEST,
-  };
+  }
 }
 
 export function getMembersSuccess(members: any): MembersSuccess {
@@ -81,7 +81,7 @@ export function getMembersSuccess(members: any): MembersSuccess {
     payload: {
       members
     }
-  };
+  }
 }
 
 export function getMembersFail(): MembersFail {
@@ -110,7 +110,7 @@ export const postMember = (member: {
   description: string;
   number: number;
 }) => {
-  console.log(member);
+  console.log(member)
   
   return {
     type: POST_MEMBER_REQUEST,
@@ -136,15 +136,15 @@ export type State = {
 export const INITIAL_STATE = {
   members: [
     {
-      name: '******',
-      description: '***********************',
+      name: "******",
+      description: "***********************",
       number: 0,
-      image: '/images/default.png',
+      image: "/images/default.png",
     }
   ],
   loading: true,
   loaded: false,
-};
+}
 
 // Reducer
 export function reducer(state: State = INITIAL_STATE, action: Action): State {
@@ -168,10 +168,10 @@ export function reducer(state: State = INITIAL_STATE, action: Action): State {
         ...state,
         loading: false,
         error: true,
-      };
+      }
     }
     default: {
-      return state;
+      return state
     }
   }
 }

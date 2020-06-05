@@ -1,5 +1,5 @@
-import React from "react";
-import { AboutDescription } from "../../organisms/AboutDescription";
+import React from "react"
+import { AboutDescription } from "../../organisms/AboutDescription"
 
 export const AboutUs = () => {
   return (

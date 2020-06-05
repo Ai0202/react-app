@@ -1,8 +1,8 @@
-import React from "react";
-import { AppBar, Toolbar, IconButton } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Img } from "./styles";
-import { Drawer } from "../Drawer";
+import React from "react"
+import { AppBar, Toolbar, IconButton } from "@material-ui/core"
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
+import { Img } from "./styles"
+import { Drawer } from "../Drawer"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
   }),
-);
+)
 
 export const Header:React.FC = () => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <AppBar position="static" className={classes.root}>
@@ -31,5 +31,5 @@ export const Header:React.FC = () => {
         <Img src="/images/kingyosukui.png" alt="logo" />
       </Toolbar>
     </AppBar>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import React from "react";
-import { Description } from "./styles";
+import React from "react"
+import { Description } from "./styles"
 
 type Props = {
-  description: String;
+  description: string;
 }
 
 export const CardDetail: React.FC<Props> = ({description}: Props) => {

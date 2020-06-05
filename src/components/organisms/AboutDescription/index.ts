@@ -1,2 +1,2 @@
-export { AboutDescription } from "./AboutDescription";
+export { AboutDescription } from "./AboutDescription"
 

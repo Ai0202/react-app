@@ -1,0 +1,41 @@
+---
+env:
+  es2020: true
+  jest/globals: true
+parser: '@typescript-eslint/parser'
+parserOptions:
+  project: ./tsconfig.json
+  ecmaFeatures:
+    jsx: true
+plugins:
+  - react
+  - jest
+  - '@typescript-eslint'
+settings:
+  react:
+    version: detect
+extends:
+  - eslint:recommended
+  - plugin:@typescript-eslint/eslint-recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:jest/recommended
+  - prettier
+  - prettier/@typescript-eslint
+rules:
+  quotes:
+    - warn
+    - double
+  indent:
+    - error
+    - 2
+    - SwitchCase: 1
+  semi:
+    - error
+    - never
+  space-before-blocks:
+    - error
+    - always
+  no-undef:
+    - warn
+  no-console:
+    - off

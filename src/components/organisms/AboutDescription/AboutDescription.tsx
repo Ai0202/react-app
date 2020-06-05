@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import React from "react"
+import styled from "styled-components"
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
+import Grid from "@material-ui/core/Grid"
 
-import { PageTitle } from "../../atoms/PageTitle";
+import { PageTitle } from "../../atoms/PageTitle"
 
 const Wrapper = styled.section`
   max-width: 90%;
@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
   }),
-);
+)
 
 export const AboutDescription: React.FC = () => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <Wrapper>
@@ -47,6 +47,6 @@ export const AboutDescription: React.FC = () => {
       </Grid>
     </Wrapper>
   )
-};
+}
 
 

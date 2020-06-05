@@ -1,5 +1,5 @@
-import React from "react";
-import { Wrapper, Title, Img } from "./styles";
+import React from "react"
+import { Wrapper, Title, Img } from "./styles"
 
 
 export  const MainVisual: React.FC = () => {

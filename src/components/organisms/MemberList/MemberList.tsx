@@ -1,7 +1,7 @@
-import React from "react";
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import { connect } from "react-redux";
+import React from "react"
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
+import Grid from "@material-ui/core/Grid"
+import { connect } from "react-redux"
 // import { Dispatch } from "redux";
 // TODO あとで型指定に使用したい
 // import { State } from "../../../redux/modules/member";
@@ -9,9 +9,9 @@ import { connect } from "react-redux";
 // TODO redux-sagaで勝手にどのページでも実行されるのを改善したい
 // import { getMembers } from "../../../redux/modules/member";
 
-import { Wrapper } from "./styles";
-import { Member } from "../Member/Member";
-import { PageTitle } from "../../atoms/PageTitle";
+import { Wrapper } from "./styles"
+import { Member } from "../Member/Member"
+import { PageTitle } from "../../atoms/PageTitle"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
     },
   }),
-);
+)
 
 type Member = {
   name: string;
@@ -44,7 +44,7 @@ export type Props = {
 // TODO ローディング
 const MemberList: React.FC<Props> = (props) => {
 
-  const classes = useStyles();
+  const classes = useStyles()
   
   return (
     <Wrapper>
@@ -74,4 +74,4 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export default connect(mapStateToProps)(MemberList);
+export default connect(mapStateToProps)(MemberList)

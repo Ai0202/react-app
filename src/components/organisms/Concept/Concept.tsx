@@ -1,5 +1,5 @@
-import React from "react";
-import { Wrapper, Title, Paragraph } from "./styles";
+import React from "react"
+import { Wrapper, Title, Paragraph } from "./styles"
 
 export const Concept: React.FC = () => {
   return (

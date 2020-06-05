@@ -1,1 +1,1 @@
-export { Concept } from "./Concept";
+export { Concept } from "./Concept"

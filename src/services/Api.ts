@@ -1,11 +1,11 @@
 // import axios from "axios";
 
-const API_ROOT = process.env.URL || 'http://localhost:3000';
-const TIMEOUT = 20000;
+const API_ROOT = process.env.URL || "http://localhost:3000"
+const TIMEOUT = 20000
 const HEADERS = {
-  'Content-Type': 'application/json',
-  Accept: 'application/json',
-};
+  "Content-Type": "application/json",
+  Accept: "application/json",
+}
 
 class ApiService {
 
@@ -36,4 +36,4 @@ class ApiService {
   // }
 }
 
-export default ApiService;
+export default ApiService

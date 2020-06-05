@@ -1,3 +1,3 @@
-import MembersCreate from "./MembersCreate";
+import MembersCreate from "./MembersCreate"
 
-export default MembersCreate;
+export default MembersCreate
