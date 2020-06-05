@@ -5,6 +5,9 @@
 const GET_MEMBERS_REQUEST = "members/request";
 const GET_MEMBERS_SUCCESS = "members/success";
 const GET_MEMBERS_FAIL = "members/fail";
+const POST_MEMBER_REQUEST = "member/post/request";
+const POST_MEMBER_SUCCESS = "member/post/success";
+const POST_MEMBER_FAIL = "member/post/fail";
 
 type MembersRequest = {
   type: typeof GET_MEMBERS_REQUEST;
@@ -20,10 +23,41 @@ type MembersFail = {
   error: boolean;
 }
 
+type PostMemberRequest = {
+  type: typeof POST_MEMBER_REQUEST;
+  payload: {
+    resource: string;
+    body: {
+      name: string;
+      number: number;
+      description: string;
+    };
+  };
+};
+
+type PostMemberSuccess = {
+  type: typeof POST_MEMBER_SUCCESS;
+  payload: {
+    data: {
+      name: string;
+      number: number;
+      description: string;
+    }
+  }
+}
+
+type PostMemberFail = {
+  type: typeof POST_MEMBER_FAIL;
+  error: boolean;
+}
+
 type Action = 
   | MembersRequest
   | MembersSuccess
   | MembersFail
+  | PostMemberRequest
+  | PostMemberSuccess
+  | PostMemberFail;
 
 export function getMembers() {
   // return steps(
@@ -54,6 +88,33 @@ export function getMembersFail(): MembersFail {
   return {
     type: GET_MEMBERS_FAIL,
     error: true,
+  }
+}
+
+export const postMemberRequest = (payload: {
+  resource: string;
+  body: {
+    name: string;
+    number: number;
+    description: string;
+  }
+}): PostMemberRequest => {
+  return {
+    type: POST_MEMBER_REQUEST,
+    payload
+  }
+}
+
+export const postMember = (member: {
+  name: string;
+  description: string;
+  number: number;
+}) => {
+  console.log(member);
+  
+  return {
+    type: POST_MEMBER_REQUEST,
+    member
   }
 }
 
