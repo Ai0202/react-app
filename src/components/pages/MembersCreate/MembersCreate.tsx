@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type Props = {
   registerMember: Function;
-  loading: boolean;
 }
 
 const MembersCreate: React.FC<Props> = (props: any) => {
@@ -47,13 +46,14 @@ const MembersCreate: React.FC<Props> = (props: any) => {
     number: "",
   })
 
-  // すべての入力フォームに対応する
+  // TODO すべての入力フォームに対応する
   const handleChange = (e: any) => {
-    const name = e.target.value
-    const description = ""
-    const number = ""
 
-    setMember({ name, description, number })
+    const name =  e.target.value
+    const description = e.target.value
+    const number = Number(1)
+
+    setMember({ name, description, number: "" })
   }
 
   return (
@@ -69,7 +69,6 @@ const MembersCreate: React.FC<Props> = (props: any) => {
         />
         <form onSubmit={e => {
           e.preventDefault()
-          console.log(member)
           props.registerMember(member)
         }}
         >
@@ -88,6 +87,7 @@ const MembersCreate: React.FC<Props> = (props: any) => {
               label="Number"
               placeholder="0"
               multiline
+              value={member.number}
               onChange={(e) => handleChange(e)}
             />
             <TextField
@@ -95,6 +95,7 @@ const MembersCreate: React.FC<Props> = (props: any) => {
               label="Description"
               placeholder="鉄砲玉"
               multiline
+              value={member.description}
               onChange={(e) => handleChange(e)}
             />
             <Input 
@@ -123,18 +124,13 @@ const MembersCreate: React.FC<Props> = (props: any) => {
   )
 }
 
-const mapStateToProps = (state: any) => {
-  return {
-    loading: state.member.loading,
-  }
-}
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    registerNewMember: (member: any) => dispatch(postMember(member))
+    registerMember: (member: any) => dispatch(postMember(member))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MembersCreate)
+export default connect((() => ({})), mapDispatchToProps)(MembersCreate)
 
 
 /**

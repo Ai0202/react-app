@@ -1,13 +1,13 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import { connect } from "react-redux"
-// import { Dispatch } from "redux";
+import { Dispatch } from "redux"
 // TODO あとで型指定に使用したい
 // import { State } from "../../../redux/modules/member";
 
 // TODO redux-sagaで勝手にどのページでも実行されるのを改善したい
-// import { getMembers } from "../../../redux/modules/member";
+import { getMembersRequest } from "../../../redux/modules/member"
 
 import { Wrapper } from "./styles"
 import { Member } from "../Member/Member"
@@ -39,12 +39,17 @@ export type Props = {
   members: any[];
   loading: boolean;
   loaded: boolean;
+  getMembers: Function;
 }
 
 // TODO ローディング
 const MemberList: React.FC<Props> = (props) => {
 
   const classes = useStyles()
+
+  useEffect(() => {
+    props.getMembers()
+  }, [])
   
   return (
     <Wrapper>
@@ -74,4 +79,10 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export default connect(mapStateToProps)(MemberList)
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    getMembers: () => dispatch(getMembersRequest())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MemberList)

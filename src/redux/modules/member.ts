@@ -2,12 +2,12 @@
 // import { fetchrRead, fetchrCreate } from "redux-effects-fetchr";
 
 // Action Types
-const GET_MEMBERS_REQUEST = "members/request"
-const GET_MEMBERS_SUCCESS = "members/success"
-const GET_MEMBERS_FAIL = "members/fail"
-const POST_MEMBER_REQUEST = "member/post/request"
-const POST_MEMBER_SUCCESS = "member/post/success"
-const POST_MEMBER_FAIL = "member/post/fail"
+export const GET_MEMBERS_REQUEST = "members/request"
+export const GET_MEMBERS_SUCCESS = "members/success"
+export const GET_MEMBERS_FAIL = "members/fail"
+export const POST_MEMBER_REQUEST = "member/post/request"
+export const POST_MEMBER_SUCCESS = "member/post/success"
+export const POST_MEMBER_FAIL = "member/post/fail"
 
 type MembersRequest = {
   type: typeof GET_MEMBERS_REQUEST;
@@ -59,15 +59,6 @@ type Action =
   | PostMemberSuccess
   | PostMemberFail;
 
-export function getMembers() {
-  // return steps(
-  //   getMembersRequest(),
-  //   ({ payload }) => fetcherRead(payload),
-  //   [getMembersSuccess, getMembersFail]
-  // )
-  return getMembersRequest()
-}
-
 // Action Creators
 export function getMembersRequest(): MembersRequest {
   return {
@@ -110,8 +101,6 @@ export const postMember = (member: {
   description: string;
   number: number;
 }) => {
-  console.log(member)
-  
   return {
     type: POST_MEMBER_REQUEST,
     member
