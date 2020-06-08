@@ -13,8 +13,9 @@ import Input from "@material-ui/core/Input"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import Box from "@material-ui/core/Box"
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { postMember } from "../../../redux/modules/member"
+import { postMemberRequest } from "../../../redux/modules/member"
 
 const Wrapper = styled.section`
   max-width: 80%;
@@ -34,26 +35,25 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 type Props = {
+  loading: boolean;
+  loaded: boolean;
   registerMember: Function;
 }
 
 const MembersCreate: React.FC<Props> = (props: any) => {
+  const { loading, loaded, registerMember } = props
   const classes = useStyles()
 
   const [member, setMember] = useState({
     name: "",
     description: "",
     number: "",
+    image: "/images/default.png",
   })
 
-  // TODO すべての入力フォームに対応する
   const handleChange = (e: any) => {
-
-    const name =  e.target.value
-    const description = e.target.value
-    const number = Number(1)
-
-    setMember({ name, description, number: "" })
+    const { name, value } = e.target
+    setMember(member => ({ ...member, [name]: value }))
   }
 
   return (
@@ -69,13 +69,14 @@ const MembersCreate: React.FC<Props> = (props: any) => {
         />
         <form onSubmit={e => {
           e.preventDefault()
-          props.registerMember(member)
+          registerMember(member)
         }}
         >
           <CardContent className={classes.root}>
             <TextField
               id="name"
               label="Name"
+              name="name"
               placeholder="Kingyo taro"
               multiline
               required
@@ -85,6 +86,7 @@ const MembersCreate: React.FC<Props> = (props: any) => {
             <TextField
               id="number"
               label="Number"
+              name="number"
               placeholder="0"
               multiline
               value={member.number}
@@ -93,6 +95,7 @@ const MembersCreate: React.FC<Props> = (props: any) => {
             <TextField
               id="description"
               label="Description"
+              name="description"
               placeholder="鉄砲玉"
               multiline
               value={member.description}
@@ -100,6 +103,7 @@ const MembersCreate: React.FC<Props> = (props: any) => {
             />
             <Input 
               id="image"
+              name="image"
               placeholder="image"
               type="file"
             />
@@ -114,7 +118,7 @@ const MembersCreate: React.FC<Props> = (props: any) => {
                 color="primary"
                 type="submit"
               >
-                  登録
+                {loading ? <CircularProgress size={24} /> : "登録" }
               </Button>
             </CardActions>
           </Box>
@@ -124,36 +128,17 @@ const MembersCreate: React.FC<Props> = (props: any) => {
   )
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapStateToProps = (state: any) => {
   return {
-    registerMember: (member: any) => dispatch(postMember(member))
+    loading: state.member.loading,
+    loaded: state.member.loaded,
   }
 }
 
-export default connect((() => ({})), mapDispatchToProps)(MembersCreate)
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    registerMember: (member: any) => dispatch(postMemberRequest(member))
+  }
+}
 
-
-/**
- * TODO 登録処理
- * 
- * 課題
- * inputされた内容の取得
- * 登録ボタン押下後のactionの実行
- * 
- * 処理の流れ
- * 
- * 登録ボタンをクリック
- * ↓
- * 入力内容の取得
- * ↓
- * dispatchの関数にわたす
- * ↓
- * actionを実行
- * ↓
- * (firebaseにデータを保存)
- * ↓
- * reducerを呼ぶ
- * ↓
- * stateの中身を更新
- * 
- */
+export default connect(mapStateToProps, mapDispatchToProps)(MembersCreate)

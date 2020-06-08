@@ -1,6 +1,3 @@
-// import { steps } from "redux-effects-steps";
-// import { fetchrRead, fetchrCreate } from "redux-effects-fetchr";
-
 // Action Types
 export const GET_MEMBERS_REQUEST = "members/request"
 export const GET_MEMBERS_SUCCESS = "members/success"
@@ -26,23 +23,16 @@ type MembersFail = {
 type PostMemberRequest = {
   type: typeof POST_MEMBER_REQUEST;
   payload: {
-    resource: string;
-    body: {
       name: string;
       number: number;
       description: string;
-    };
   };
 };
 
 type PostMemberSuccess = {
   type: typeof POST_MEMBER_SUCCESS;
   payload: {
-    data: {
-      name: string;
-      number: number;
-      description: string;
-    }
+    success: boolean;
   }
 }
 
@@ -82,25 +72,30 @@ export function getMembersFail(): MembersFail {
   }
 }
 
-export const postMemberRequest = (payload: {
-  resource: string;
-  body: {
-    name: string;
-    number: number;
-    description: string;
-  }
-}): PostMemberRequest => {
+export const postMemberRequest = (payload: Member): PostMemberRequest => {
   return {
     type: POST_MEMBER_REQUEST,
     payload
   }
 }
 
-export const postMember = (member: {
-  name: string;
-  description: string;
-  number: number;
-}) => {
+export const postMemberSuccess = (payload: {
+  success: boolean;
+}): PostMemberSuccess => {
+  return {
+    type: POST_MEMBER_SUCCESS,
+    payload
+  }
+}
+
+export const postMemberFail = (): PostMemberFail => {
+  return {
+    type: POST_MEMBER_FAIL,
+    error: true,
+  }
+}
+
+export const postMember = (member: Member) => {
   return {
     type: POST_MEMBER_REQUEST,
     member
@@ -108,7 +103,7 @@ export const postMember = (member: {
 }
 
 // Initial state
-type Members = {
+export type Member = {
   name: string;
   description: string;
   number: number;
@@ -116,7 +111,7 @@ type Members = {
 }
 
 export type State = {
-  members: Members[];
+  members: Member[];
   loading: boolean;
   loaded: boolean;
   error?: boolean;
@@ -131,7 +126,7 @@ export const INITIAL_STATE = {
       image: "/images/default.png",
     }
   ],
-  loading: true,
+  loading: false,
   loaded: false,
 }
 
@@ -157,6 +152,20 @@ export function reducer(state: State = INITIAL_STATE, action: Action): State {
         ...state,
         loading: false,
         error: true,
+      }
+    }
+    case POST_MEMBER_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false,
+      }
+    }
+    case POST_MEMBER_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
       }
     }
     default: {
