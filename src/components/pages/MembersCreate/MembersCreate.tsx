@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
@@ -56,6 +56,16 @@ const MembersCreate: React.FC<Props> = (props: any) => {
     setMember(member => ({ ...member, [name]: value }))
   }
 
+  // 画像投稿
+  const handleChangeFile = (e: any) => {
+    const target: HTMLInputElement = e.target as HTMLInputElement
+
+    const file: File | null = target.files !== null ? target.files.item(0) : null
+   
+    setMember(member => ({ ...member, [target.name]: file }))
+        
+  }
+
   return (
     <Wrapper>
       <Card>
@@ -106,6 +116,7 @@ const MembersCreate: React.FC<Props> = (props: any) => {
               name="image"
               placeholder="image"
               type="file"
+              onChange={(e) => handleChangeFile(e)}
             />
           </CardContent>
           <Box

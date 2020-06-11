@@ -95,19 +95,12 @@ export const postMemberFail = (): PostMemberFail => {
   }
 }
 
-export const postMember = (member: Member) => {
-  return {
-    type: POST_MEMBER_REQUEST,
-    member
-  }
-}
-
 // Initial state
 export type Member = {
   name: string;
   description: string;
   number: number;
-  image: string;
+  image: string | File;
 }
 
 export type State = {

@@ -1,6 +1,13 @@
 import { call, put, takeLatest, takeEvery, fork } from "redux-saga/effects"
-import { getMembers as fetchMembers, postMember as postNewMember } from "../services/Firebase"
-import { getMembersSuccess, postMemberSuccess, postMemberFail, POST_MEMBER_REQUEST, GET_MEMBERS_REQUEST } from "../redux/modules/member"
+import { getMembers as fetchMembers, postMember as postNewMember, postFile } from "../services/Firebase"
+import { 
+  getMembersSuccess, 
+  postMemberSuccess, 
+  postMemberRequest,
+  postMemberFail, 
+  POST_MEMBER_REQUEST, 
+  GET_MEMBERS_REQUEST,
+  Member } from "../redux/modules/member"
 
 function* getMembers() {
   try {
@@ -19,18 +26,22 @@ function* postMember({ payload }: any) {
   try {
     const { name, description, number, image } = payload
     
+    const uploadedFileName = yield call(postFile, image)
+    
     // firebaseにpost
     const res = yield call(postNewMember, {
       name,
       description,
       number,
-      image,
+      image: uploadedFileName,
     })
 
     // actionを実行
     yield put(postMemberSuccess({ success: res }))
 
   } catch (e) {
+    console.log(e)
+    
     yield put(postMemberFail())
   }
 }
