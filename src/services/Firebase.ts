@@ -32,6 +32,7 @@ export const getMembers = async () => {
   return members
 }
 
+// filepathを保存する
 export const postFile = async (file: File) => {
   const fileName = `members/${uuidv4()}`
 
@@ -39,7 +40,8 @@ export const postFile = async (file: File) => {
   const storageRef = storage.ref()
   const uploadTask = storageRef.child(fileName).put(file)
 
-  uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+  let filePath: any
+  await uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
     (snapshot) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
@@ -55,13 +57,14 @@ export const postFile = async (file: File) => {
     }, (error) => {
       // TODO エラー
       console.log('error')
-    }, () => {
-      console.log('success')
+    }, async () => {
       // Upload completed successfully, now we can get the download URL
-      // return uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => downloadURL)
+      filePath = await uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => downloadURL)
+      
+      return filePath
     }
   )
-
+  
   return fileName
 }
 
