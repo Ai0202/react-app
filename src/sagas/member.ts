@@ -26,16 +26,17 @@ function* postMember({ payload }: any) {
   try {
     const { name, description, number, image } = payload
     
-    const uploadedFileName = yield call(postFile, image)
+    // TODO storageとdb保存分けたかったけど、できず1つの関数にまとめたため、いずれ修正
+    // const uploadedFileName = yield call(postFile, image)
     
     // firebaseにpost
     const res = yield call(postNewMember, {
       name,
       description,
       number,
-      image: uploadedFileName,
+      image,
     })
-
+    
     // actionを実行
     yield put(postMemberSuccess({ success: res }))
 
