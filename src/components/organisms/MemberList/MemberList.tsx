@@ -45,11 +45,10 @@ export type Props = {
 // TODO ローディング
 const MemberList: React.FC<Props> = (props) => {
 
+  const { members, getMembers } = props
   const classes = useStyles()
 
-  useEffect(() => {
-    props.getMembers()
-  }, [])
+  useEffect(() => { getMembers() }, [])
   
   return (
     <Wrapper>
@@ -59,7 +58,7 @@ const MemberList: React.FC<Props> = (props) => {
         </Grid>
         <Grid item xs={12}>
           <Grid container justify="center" spacing={4}>
-            {props.members.map((v, i) => (
+            {members.map((v, i) => (
               <Grid key={i} item>
                 <Member member={v} />
               </Grid>

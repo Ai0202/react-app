@@ -41,7 +41,7 @@ type Props = {
 }
 
 const MembersCreate: React.FC<Props> = (props: any) => {
-  const { loading, loaded, registerMember } = props
+  const { loading, registerMember } = props
   const classes = useStyles()
 
   const [member, setMember] = useState({

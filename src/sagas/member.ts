@@ -1,13 +1,11 @@
 import { call, put, takeLatest, takeEvery, fork } from "redux-saga/effects"
-import { getMembers as fetchMembers, postMember as postNewMember, postFile } from "../services/Firebase"
+import { getMembers as fetchMembers, postMember as postNewMember } from "../services/Firebase"
 import { 
   getMembersSuccess, 
   postMemberSuccess, 
-  postMemberRequest,
   postMemberFail, 
   POST_MEMBER_REQUEST, 
-  GET_MEMBERS_REQUEST,
-  Member } from "../redux/modules/member"
+  GET_MEMBERS_REQUEST } from "../redux/modules/member"
 
 function* getMembers() {
   try {
