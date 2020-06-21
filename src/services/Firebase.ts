@@ -18,6 +18,7 @@ const config = {
 
 const firebaseApp = firebase.initializeApp(config)
 export const firestore = firebaseApp.firestore()
+export const firebaseAuth = firebaseApp.auth()
 
 export const getMembers = async () => {
   const members: any[] = []
@@ -107,3 +108,5 @@ export const postMember = async (member: Member) => {
   // TODO 非同期のためエラーが出てもtrueがかえる
   return true
 }
+
+export default firebase
