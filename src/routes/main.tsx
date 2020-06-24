@@ -5,6 +5,7 @@ import { Home } from "../components/pages/Home"
 import { Members } from "../components/pages/Members"
 import MembersCreate from "../components/pages/MembersCreate"
 import { AboutUs } from "../components/pages/AboutUs"
+import { Signin } from "../components/pages/Signin"
 import { Header } from "../components/organisms/Header"
 
 export const Routes = () => {
@@ -17,6 +18,7 @@ export const Routes = () => {
         <Route path="/members" exact component={Members} />
         <Route path="/members/create" component={MembersCreate} />
         <Route path="/aboutus" component={AboutUs} />
+        <Route path="/signin" component={Signin} />
       </Switch>
     </Router>
   )
