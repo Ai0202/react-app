@@ -1,9 +1,9 @@
 import React, { InputHTMLAttributes } from "react"
 import styled from "styled-components"
 
-export const ContactFormInput: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({  name, type, placeholder }) => (
+export const ContactFormInput: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({  name, type, placeholder, onChange }) => (
   <InputBox>
-    <Input name={name} type={type} placeholder={placeholder} />  
+    <Input name={name} type={type} placeholder={placeholder} onChange={onChange} />  
   </InputBox>
 )
 
