@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.14",
     "@material-ui/icons": "^4.9.1",
+    "@sweetalert/with-react": "^0.1.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -32,6 +33,7 @@
     "redux-saga": "^1.1.3",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.0",
+    "sweetalert": "^2.1.2",
     "uuid": "^8.1.0"
   },
   "scripts": {
@@ -64,8 +66,10 @@
     "@typescript-eslint/eslint-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^3.1.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react-app": "^5.2.1",
     "eslint-plugin-jest": "^23.13.2",
     "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.6",
     "firebaseui": "^4.5.1",
     "react-firebaseui": "^4.1.0",
     "typescript": "^3.9.3"
