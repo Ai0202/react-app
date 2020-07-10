@@ -1,8 +1,9 @@
 import React from "react"
-import styled from "styled-components"
+
+import { ContactForm } from "../../organisms/ContactForm"
 
 export const Contact: React.FC = () => {
   return (
-    <div>問い合わせ</div>
+    <ContactForm />
   )
 }
