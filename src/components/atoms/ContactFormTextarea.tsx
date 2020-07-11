@@ -1,9 +1,13 @@
 import React, { TextareaHTMLAttributes } from "react"
 import styled from "styled-components"
 
-export const ContactFormTextarea: React.FC<TextareaHTMLAttributes<HTMLTextAreaElement>> = ( { name, placeholder, onChange } ) => (
+type Props = TextareaHTMLAttributes<HTMLTextAreaElement> & {
+  register: any
+}
+
+export const ContactFormTextarea: React.FC<Props> = ( { register, name, placeholder, onChange } ) => (
   <InputBox>
-    <Textarea name={name} placeholder={placeholder} onChange={onChange} />
+    <Textarea ref={register} name={name} placeholder={placeholder} onChange={onChange} />
   </InputBox>
 )
 
