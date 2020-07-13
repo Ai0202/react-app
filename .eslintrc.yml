@@ -21,6 +21,8 @@ extends:
   - plugin:jest/recommended
   - prettier
   - prettier/@typescript-eslint
+  - react-app
+  - react-hooks
 rules:
   quotes:
     - warn

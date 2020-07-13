@@ -109,4 +109,19 @@ export const postMember = async (member: Member) => {
   return true
 }
 
+export const declarationOfWar = async (opponent: any) => {
+  // sleep処理
+  // const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  // await _sleep(2000);
+  
+  const { name, email, tel, detail } = opponent
+  return firestore.collection("opponents")
+    .add({
+      name,
+      email,
+      tel,
+      detail,
+    })
+}
+
 export default firebase
