@@ -110,14 +110,12 @@ export const postMember = async (member: Member) => {
 }
 
 export const declarationOfWar = async (opponent: any) => {
-  const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-  await _sleep(4000);
-  console.log('登録');
+  // sleep処理
+  // const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  // await _sleep(2000);
   
-
   const { name, email, tel, detail } = opponent
-  firestore.collection("opponents")
+  return firestore.collection("opponents")
     .add({
       name,
       email,

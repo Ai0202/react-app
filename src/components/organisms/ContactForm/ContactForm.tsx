@@ -19,22 +19,33 @@ type Inputs = {
 
 export const ContactForm: React.FC = () => {
   const { register, handleSubmit, watch, errors } = useForm<Inputs>()
-  const [opponent, setOpponent] = useState({
-    name: "",
-    email: "",
-    tel: "",
-    detail: "",
-  })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setOpponent(opponent => ({ ...opponent, [name]: value}))
-  }
+  const onSubmit = (data: Inputs) => {        
+    swal({
+      title: '本当に対戦を申し込みますか?',
+      text: 'なるべく早めにご返信できるようにします',
+      buttons: {
+        cancel: true,
+        confirm: {
+          text: 'yes!!',
+          closeModal: false,
+        }
+      },
+      icon: "info",
+    })
+    .then((res: boolean | null) => {
+      if (res === null) return
 
-  const onSubmit = (data: Inputs) => {
-    declarationOfWar(opponent).then(() => {
-      // TODO ローディング
-      swal('Good job!', 'just wait a contact from Kingyo', 'success')
+      return declarationOfWar(data)
+    })
+    .then((res: any) => {
+      if (res === undefined) return
+      
+      swal({
+        title: 'Good job!',
+        text: 'just wait a contact from Kingyo',
+        icon: 'success',
+      })
     })
   }
 
@@ -50,7 +61,6 @@ export const ContactForm: React.FC = () => {
           name="name" 
           type="text" 
           placeholder="代表者氏名" 
-          onChange={e => handleChange(e)} 
         />
         {errors.name && <Error className="error-message">{errors.name.message}</Error>}
         <ContactFormInput 
@@ -58,7 +68,6 @@ export const ContactForm: React.FC = () => {
           name="email" 
           type="email" 
           placeholder="kingyosukui@kingyosukui.com" 
-          onChange={e => handleChange(e)} 
         />
         {errors.email && <Error className="error-message">{errors.email.message}</Error>}
         <ContactFormInput
@@ -66,14 +75,12 @@ export const ContactForm: React.FC = () => {
           name="tel" 
           type="tel" 
           placeholder="08011111111" 
-          onChange={e => handleChange(e)} 
         />
         {errors.tel && <Error className="error-message">{errors.tel.message}</Error>}
         <ContactFormTextarea
           register={register({ required: '意気込みは必須です' })} 
           name="detail" 
           placeholder="意気込み" 
-          onChange={e => handleChange(e)} 
         />
         {errors.detail && <Error className="error-message">{errors.detail.message}</Error>}
         <ContactFormButton value="対戦を申し込む" />
