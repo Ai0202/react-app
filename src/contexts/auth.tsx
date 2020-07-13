@@ -1,9 +1,16 @@
-import React, { createContext, useState, useCallback, useEffect } from "react"
+import React, { FC, createContext, useState, useCallback, useEffect } from "react"
 import { firebaseAuth } from "../services/Firebase"
 
-const AuthContext = createContext()
+interface IContextProps {
+  currentUser?: any
+  signin: any
+  signout: any
+  loading: boolean
+}
 
-const AuthProvider = ({ children }) => {
+const AuthContext = createContext({} as IContextProps)
+
+const AuthProvider: FC = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [currentUser, setCurrentUser] = useState(null)
 
@@ -26,7 +33,7 @@ const AuthProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    firebaseAuth.onAuthStateChanged(user => {
+    firebaseAuth.onAuthStateChanged((user: any) => {
       setLoading(false)
       setCurrentUser(user)
     })
