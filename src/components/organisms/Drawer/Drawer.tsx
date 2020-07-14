@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Link } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
 import Drawer from "@material-ui/core/Drawer"
@@ -12,6 +12,10 @@ import MailIcon from "@material-ui/icons/Mail"
 import MenuIcon from "@material-ui/icons/Menu"
 import InfoIcon from "@material-ui/icons/Info"
 import AnnouncementIcon from "@material-ui/icons/Announcement"
+import GroupAddIcon from '@material-ui/icons/GroupAdd'
+
+import { routes } from "../../../url"
+import { AuthContext } from "../../../contexts/Auth"
 
 // TODO index.js:1 Warning: findDOMNode is deprecated in StrictMode. findDOMNode was passed an instance of Transition
 const useStyles = makeStyles({
@@ -25,17 +29,20 @@ const useStyles = makeStyles({
 })
 
 export const DrawerComponent = () => {
+  const { isSignedin } = useContext(AuthContext)
+
   const classes = useStyles()
   const [state, setState] = React.useState({
     drawer: false,
   })
 
   const menus = [
-    { name: "Home", path: "/", icon: "home" },
-    { name: "Member", path: "/members", icon: "member" },
-    { name: "About us", path: "/aboutus", icon: "about" },
-    { name: "News", path: "/news", icon: "news" },
-    { name: "contact", path: "/contact", icon: "contact" },
+    { name: "Home", path: `${routes.home}`, icon: "home", isPublic: true },
+    { name: "Member", path: `${routes.members}`, icon: "member", isPublic: true  },
+    { name: "About us", path: `${routes.aboutus}`, icon: "about", isPublic: true },
+    { name: "News", path: "/news", icon: "news", isPublic: true  },
+    { name: "contact", path: `${routes.contact}`, icon: "contact", isPublic: true  },
+    { name: "add member", path: `${routes.memberCreate}`, icon: "add", isPublic: false  },
   ]
 
   const toggleDrawer = (isOpen: boolean) => (
@@ -60,23 +67,25 @@ export const DrawerComponent = () => {
     >
       <List>
         {menus.map((menu, index) => (
-          <Link key={index} className={classes.navLink} to={menu.path} >
-            <ListItem button>
-              <ListItemIcon>
-                {(() => {
-                  switch (menu.icon) {
-                    case "home": return <HomeIcon />
-                    case "member": return <GroupIcon />
-                    case "about": return <InfoIcon />
-                    case "news": return <AnnouncementIcon />
-                    case "contact": return <MailIcon />
-                    default: return 
-                  }
-                })()}
-              </ListItemIcon>
-              <ListItemText primary={menu.name} />
-            </ListItem>
-          </Link>
+          (isSignedin || menu.isPublic) &&
+            <Link key={index} className={classes.navLink} to={menu.path} >
+              <ListItem button>
+                <ListItemIcon>
+                  {(() => {
+                    switch (menu.icon) {
+                      case "home": return <HomeIcon />
+                      case "member": return <GroupIcon />
+                      case "about": return <InfoIcon />
+                      case "news": return <AnnouncementIcon />
+                      case "contact": return <MailIcon />
+                      case "add": return <GroupAddIcon />
+                      default: return 
+                    }
+                  })()}
+                </ListItemIcon>
+                <ListItemText primary={menu.name} />
+              </ListItem>
+            </Link>
         ))}
       </List>
     </div>
