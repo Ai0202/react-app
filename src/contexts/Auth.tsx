@@ -1,17 +1,23 @@
 import React, { FC, createContext, useState, useEffect } from "react"
 import firebase, { firebaseAuth } from "../services/Firebase"
 
+
+
 interface IContextProps {
   currentUser: any
+  /* setCurrentUser: (user: object) => void */
   signin: () => void
   signout: () => void
-  isSignin: () => boolean
+  isSignedin: boolean
+  checkSignedin: () => void
 }
 
 const AuthContext = createContext({} as IContextProps)
 
 const AuthProvider: FC = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState({})
+  // const [currentUser, setCurrentUser] = useState(null)
+  const [isSignedin, setIsSignedin] = useState(true)
 
   const signin = async () => {
     console.log('サインイン')
@@ -24,22 +30,18 @@ const AuthProvider: FC = ({ children }) => {
   }
 
   const signout = async () => {
-    console.log('サインアウト')
-    
     await firebaseAuth.signOut()
   }
 
-  // サインインのチェック
-  const isSignin = () => {
-    return false
+  const checkSignedin = () => {
+    firebaseAuth.onAuthStateChanged(user => {
+      setIsSignedin(!!user)
+      setCurrentUser({ ...user })
+    })
   }
 
-  useEffect(() => {
-    // firebaseAuth.onAuthStateChanged(setCurrentUser)
-  }, [])
-
   return (
-    <AuthContext.Provider value={{ currentUser, signin, signout, isSignin }}>
+    <AuthContext.Provider value={{ currentUser, signin, signout, isSignedin, checkSignedin }}>
       {children}
     </AuthContext.Provider>
   )

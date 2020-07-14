@@ -1,8 +1,10 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
+import firebase, { firebaseAuth } from "../../../services/Firebase"
 import { AppBar, Toolbar, IconButton } from "@material-ui/core"
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import Avatar from '@material-ui/core/Avatar'
 
 import { Img } from "./styles"
 import { Drawer } from "../Drawer"
@@ -25,7 +27,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Header:React.FC = () => {
   const classes = useStyles()
-  const { isSignin } = useContext(AuthContext)
+  const { isSignedin, signout, currentUser, checkSignedin } = useContext(AuthContext)
+
+  useEffect(() => {
+    checkSignedin()
+  }, [])
 
   return (
     <AppBar position="static" className={classes.root}>
@@ -36,7 +42,14 @@ export const Header:React.FC = () => {
         <Typography variant="h6" className={classes.title}>
           <Img src="/images/kingyosukui.png" alt="logo" />
         </Typography>
-        {isSignin() && <Button color="inherit">サインアウト</Button>}
+        {isSignedin && (
+          <>
+            {/* <Typography>{currentUser?.displayName}</Typography> */}
+            <Button color="inherit" onClick={signout}>サインアウト</Button>
+            {/* TODO 写真が403 */}
+            <Avatar alt="Profile Picture" src={currentUser?.photoURL} />
+          </>
+          )}
       </Toolbar>
     </AppBar>
   )
