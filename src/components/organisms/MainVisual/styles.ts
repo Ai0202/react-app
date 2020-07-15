@@ -22,6 +22,11 @@ export const Title = styled.h1`
   position: absolute;
   bottom: 1rem;
   right: -4rem;
+
+  @media screen and (max-width: 780px) {
+    font-size: 3rem;
+    right: -1.5rem;
+  }
 `
 
 export const SubTitle = styled.h2`
