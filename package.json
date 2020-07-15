@@ -73,6 +73,6 @@
     "eslint-plugin-react-hooks": "^4.0.6",
     "firebaseui": "^4.5.1",
     "react-firebaseui": "^4.1.0",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.6"
   }
 }
