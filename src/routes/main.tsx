@@ -12,6 +12,7 @@ import { Header } from "../components/organisms/Header"
 import { routes } from "../url"
 import { PrivateRoute } from "./PrivateRoute"
 import { GuestRoute } from "./GuestRoute"
+import { NotFound } from "../components/pages/NotFound"
 
 export const Routes = () => {
   return (
@@ -25,6 +26,7 @@ export const Routes = () => {
         <Route path={routes.contact} component={Contact} />
         <GuestRoute path={routes.signin} children={Signin} />
         <PrivateRoute path={routes.memberCreate} children={MembersCreate} />
+        <Route component={NotFound} />
       </Switch>
     </Router>
   )
