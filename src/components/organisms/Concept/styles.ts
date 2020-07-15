@@ -10,7 +10,7 @@ export const Title = styled.h2`
   font-size: 2rem;
   color: #CD8724;
   text-align: center;
-  font-family: 'Rowo Typeface';
+  font-family: 'Rowo Typeface', 'Dancing Script', 'Sawarabi Gothic', 'san-serif';
   letter-spacing: 2px;
 `
 

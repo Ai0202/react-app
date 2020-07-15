@@ -17,7 +17,7 @@ export const Title = styled.h1`
   font-size: 6rem;
   color: #00011D;
   letter-spacing: 6px;
-  font-family: 'Rowo Typeface';
+  font-family: 'Rowo Typeface', 'Dancing Script', 'Sawarabi Gothic', 'san-serif';
   transform: rotate(-30deg);
   position: absolute;
   bottom: 1rem;

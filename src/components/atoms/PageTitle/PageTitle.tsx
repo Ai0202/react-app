@@ -8,7 +8,7 @@ type Props = {
 const Title = styled.h2`
   font-size: 3rem;
   color: #CD8724;
-  font-family: 'Rowo Typeface';
+  font-family: 'Rowo Typeface', 'Dancing Script', 'Sawarabi Gothic', 'san-serif';
   letter-spacing: 2px; 
   text-align: center;
 `
