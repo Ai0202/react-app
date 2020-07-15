@@ -5,6 +5,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Avatar from '@material-ui/core/Avatar'
+import { useHistory } from "react-router-dom"
 
 import { Img } from "./styles"
 import { Drawer } from "../Drawer"
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const Header:React.FC = () => {
   const classes = useStyles()
   const { isSignedin, signout, currentUser, checkSignedin } = useContext(AuthContext)
+  const history = useHistory()
 
   useEffect(() => {
     checkSignedin()
@@ -45,7 +47,7 @@ export const Header:React.FC = () => {
         {isSignedin && (
           <>
             {/* <Typography>{currentUser?.displayName}</Typography> */}
-            <Button color="inherit" onClick={signout}>サインアウト</Button>
+            <Button color="inherit" onClick={() => signout(history)}>サインアウト</Button>
             {/* TODO 写真が403 */}
             <Avatar alt="Profile Picture" src={currentUser?.photoURL} />
           </>

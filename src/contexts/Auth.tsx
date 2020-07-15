@@ -7,7 +7,7 @@ interface IContextProps {
   currentUser: any
   /* setCurrentUser: (user: object) => void */
   signin: () => void
-  signout: () => void
+  signout: (history: any) => void
   isSignedin: boolean
   checkSignedin: () => void
 }
@@ -29,8 +29,9 @@ const AuthProvider: FC = ({ children }) => {
     }
   }
 
-  const signout = async () => {
+  const signout = async (history: any) => {
     await firebaseAuth.signOut()
+    history.push("/")
   }
 
   const checkSignedin = () => {
