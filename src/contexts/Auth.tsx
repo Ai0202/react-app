@@ -16,8 +16,7 @@ const AuthContext = createContext({} as IContextProps)
 
 const AuthProvider: FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({})
-  // const [currentUser, setCurrentUser] = useState(null)
-  const [isSignedin, setIsSignedin] = useState(true)
+  const [isSignedin, setIsSignedin] = useState(false)
 
   const signin = async () => {
     console.log('サインイン')

@@ -10,6 +10,8 @@ import { Contact } from "../components/pages/Contact"
 import { Signin } from "../components/pages/Signin"
 import { Header } from "../components/organisms/Header"
 import { routes } from "../url"
+import { PrivateRoute } from "./PrivateRoute"
+import { GuestRoute } from "./GuestRoute"
 
 export const Routes = () => {
   return (
@@ -19,10 +21,10 @@ export const Routes = () => {
       <Switch>
         <Route path={routes.home} exact component={Home} />
         <Route path={routes.members} exact component={Members} />
-        <Route path={routes.memberCreate} component={MembersCreate} />
         <Route path={routes.aboutus} component={AboutUs} />
         <Route path={routes.contact} component={Contact} />
-        <Route path={routes.signin} component={Signin} />
+        <GuestRoute path={routes.signin} children={Signin} />
+        <PrivateRoute path={routes.memberCreate} children={MembersCreate} />
       </Switch>
     </Router>
   )
