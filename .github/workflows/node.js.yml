@@ -38,7 +38,7 @@ jobs:
           name: build
           path: build
       - name: Deploy to Firebase Hosting
-        uses: Ai0202/react-app@master
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
