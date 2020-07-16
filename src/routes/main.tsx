@@ -13,6 +13,7 @@ import { routes } from "../url"
 import { PrivateRoute } from "./PrivateRoute"
 import { GuestRoute } from "./GuestRoute"
 import { NotFound } from "../components/pages/NotFound"
+import { News } from "../components/pages/News"
 
 export const Routes = () => {
   return (
@@ -24,6 +25,7 @@ export const Routes = () => {
         <Route path={routes.members} exact component={Members} />
         <Route path={routes.aboutus} component={AboutUs} />
         <Route path={routes.contact} component={Contact} />
+        <Route path={routes.news} component={News} />
         <GuestRoute path={routes.signin} children={Signin} />
         <PrivateRoute path={routes.memberCreate} children={MembersCreate} />
         <Route component={NotFound} />
