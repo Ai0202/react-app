@@ -38,10 +38,10 @@ jobs:
           name: build
           path: build
       - name: Deploy to Firebase Hosting
-          uses: w9jds/firebase-action@master
-          with:
-            args: deploy --only hosting
-          env:
-            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        uses: Ai0202/react-app@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           
         
