@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react"
-import firebase, { firebaseAuth } from "../../../services/Firebase"
 import { AppBar, Toolbar, IconButton } from "@material-ui/core"
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
 import Typography from '@material-ui/core/Typography'
@@ -31,9 +30,9 @@ export const Header:React.FC = () => {
   const { isSignedin, signout, currentUser, checkSignedin } = useContext(AuthContext)
   const history = useHistory()
 
-  useEffect(() => {
-    checkSignedin()
-  }, [])
+  // 初回のみ実行で良いため
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {checkSignedin()}, [])
 
   return (
     <AppBar position="static" className={classes.root}>

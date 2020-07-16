@@ -1,5 +1,5 @@
-import React, { FC, createContext, useState, useEffect } from "react"
-import firebase, { firebaseAuth } from "../services/Firebase"
+import React, { FC, createContext, useState } from "react"
+import { firebaseAuth } from "../services/Firebase"
 
 
 

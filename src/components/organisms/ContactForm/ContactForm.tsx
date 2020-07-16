@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { useForm } from "react-hook-form"
 import styled from "styled-components"
 import { declarationOfWar } from "../../../services/Firebase"
@@ -18,7 +18,7 @@ type Inputs = {
 }
 
 export const ContactForm: React.FC = () => {
-  const { register, handleSubmit, watch, errors } = useForm<Inputs>()
+  const { register, handleSubmit, errors } = useForm<Inputs>()
 
   const onSubmit = (data: Inputs) => {        
     swal({

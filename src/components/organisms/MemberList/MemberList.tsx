@@ -55,7 +55,9 @@ const MemberList: React.FC<Props> = (props) => {
 
   const classes = useStyles()
 
-  useEffect(() => { getMembers() }, [])
+  // 初回のみ実行で良いため
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {getMembers()}, [])
 
   return (
     <Wrapper>

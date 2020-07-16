@@ -5,7 +5,6 @@ import CardActionArea from "@material-ui/core/CardActionArea"
 import CardContent from "@material-ui/core/CardContent"
 import CardMedia from "@material-ui/core/CardMedia"
 import Typography from "@material-ui/core/Typography"
-import Skeleton from "@material-ui/lab/Skeleton"
 
 import { CardTitle } from "../../atoms/CardTitle"
 import { CardDetail } from "../../atoms/CardDetail"
