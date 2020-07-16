@@ -11,13 +11,10 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x]
-
     steps:
     - uses: actions/checkout@master
     - name: Use Node.js ${{ matrix.node-version }}
@@ -29,7 +26,6 @@ jobs:
     # - run: npm test
 
   deploy:
-
     name: deploy
     needs: build
     runs-on: ubuntu-latest
@@ -42,5 +38,10 @@ jobs:
           name: build
           path: build
       - name: Deploy to Firebase Hosting
-          run: yarn deploy --token=${{ secrets.FIREBASE_TOKEN }}
+          uses: Ai0202/react-app@master
+          with:
+            args: deploy --only hosting
+          env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          
         
