@@ -5,13 +5,14 @@ import CardActionArea from "@material-ui/core/CardActionArea"
 import CardContent from "@material-ui/core/CardContent"
 import CardMedia from "@material-ui/core/CardMedia"
 import Typography from "@material-ui/core/Typography"
+import Skeleton from "@material-ui/lab/Skeleton"
 
 import { CardTitle } from "../../atoms/CardTitle"
 import { CardDetail } from "../../atoms/CardDetail"
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    width: 345,
   },
   media: {
     height: 200,
@@ -38,7 +39,7 @@ export const Member: React.FC<Props> = ({member}: Props) => {
           title="Atsushi Ikeda"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" component="h4">
             <CardTitle name={member.name} />
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
