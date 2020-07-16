@@ -1,8 +1,10 @@
 import React, { useEffect } from "react"
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
+import CircularProgress from "@material-ui/core/CircularProgress"
 import Grid from "@material-ui/core/Grid"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
+
 // TODO あとで型指定に使用したい
 // import { State } from "../../../redux/modules/member";
 
@@ -25,6 +27,11 @@ const useStyles = makeStyles((theme: Theme) =>
     control: {
       padding: theme.spacing(2),
     },
+    circleWrapper: {
+      marginTop: 40,
+      textAlign: 'center',
+      color: '#3f51b5'
+    }
   }),
 )
 
@@ -38,32 +45,36 @@ type Member = {
 export type Props = {
   members: any[];
   loading: boolean;
-  loaded: boolean;
   getMembers: Function;
 }
 
 // TODO ローディング
 const MemberList: React.FC<Props> = (props) => {
 
-  const { members, getMembers } = props
+  const { members, getMembers, loading } = props
+
   const classes = useStyles()
 
   useEffect(() => { getMembers() }, [])
-  
+
   return (
     <Wrapper>
       <Grid container className={classes.root} spacing={4}>
         <Grid item xs={12}>
           <PageTitle title="Member" />
         </Grid>
-        <Grid item xs={12}>
-          <Grid container justify="center" spacing={4}>
-            {members.map((v, i) => (
-              <Grid key={i} item>
-                <Member member={v} />
-              </Grid>
-            ))}
-          </Grid>
+        <Grid item className={classes.circleWrapper} xs={12}>
+          {loading 
+            ? <CircularProgress size={120} color='inherit' />
+            :
+            <Grid container justify="center" spacing={4}>
+              {members.map((v, i) => (
+                <Grid key={i} item>
+                  <Member member={v} />
+                </Grid>
+              ))}
+            </Grid>
+          }
         </Grid>
       </Grid>
     </Wrapper>
@@ -74,7 +85,6 @@ const mapStateToProps = (state: any) => {
   return {
     members: state.member.members,
     loading: state.member.loading,
-    loaded: state.member.loaded,
   }
 }
 
