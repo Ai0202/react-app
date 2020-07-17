@@ -18,7 +18,9 @@ jobs:
         uses: actions/checkout@master
       - name: install Dependencies
         run: yarn install
-      - name: Test
+      - name: Run Tests
+        env:
+          CI: true
         run: yarn test
 
   build:
