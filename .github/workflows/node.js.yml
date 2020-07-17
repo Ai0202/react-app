@@ -9,8 +9,17 @@ on:
   pull_request:
     branches:
       - master
-
 jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: install Dependencies & test
+        run: yarn install
+        run: yarn test
+
   build:
     name: Build
     runs-on: ubuntu-latest
