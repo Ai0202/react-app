@@ -16,13 +16,14 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - name: install Dependencies & test
-        run: |
-          yarn install
-          yarn test
+      - name: install Dependencies
+        run: yarn install
+      - name: Test
+        run: yarn test
 
   build:
     name: Build
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
