@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainVisual レンダリングの更新がないこと 1`] = `
+<div>
+  <section
+    class="sc-AxjAm fpntmP"
+  >
+    <div
+      class="sc-AxirZ czKQZ"
+    >
+      <h1
+        class="sc-AxiKw fIdtxI"
+      >
+        Kingyo Sukui
+      </h1>
+    </div>
+  </section>
+</div>
+`;
+
+exports[`MainVisual 正しくレンダリングされること 1`] = `
+<div>
+  <section
+    class="sc-AxjAm fpntmP"
+  >
+    <div
+      class="sc-AxirZ czKQZ"
+    >
+      <h1
+        class="sc-AxiKw fIdtxI"
+      >
+        Kingyo Sukui
+      </h1>
+    </div>
+  </section>
+</div>
+`;
