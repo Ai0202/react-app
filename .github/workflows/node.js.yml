@@ -25,6 +25,7 @@ jobs:
 
   build:
     name: Build
+    # needs: test
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
@@ -32,9 +33,6 @@ jobs:
     - name: Install Dependencies
       run: yarn install
     - name: Run Tests
-      env: 
-        CI: true
-      run: yarn run test
     - name: Build
       run: yarn build --if-present
       env:
