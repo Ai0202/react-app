@@ -2,7 +2,9 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
+import swal from "@sweetalert/with-react"
 
+import { DropzoneArea } from 'material-ui-dropzone'
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
 import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
@@ -12,25 +14,30 @@ import Avatar from "@material-ui/core/Avatar"
 import Input from "@material-ui/core/Input"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
-import Box from "@material-ui/core/Box"
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { postMemberRequest } from "../../../redux/modules/member"
 
-const Wrapper = styled.section`
-  max-width: 80%;
-  margin: 0 auto;
-  padding: 40px 0;
-`
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      "& > *": {
-        margin: theme.spacing(1),
-        width: "25ch",
-      },
+      display: 'flex',
+      flexWrap: 'wrap',
     },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: '25ch',
+    },
+    imageUpload: {
+      margin: '20px auto',
+      width: '99%',
+    },
+    pullRight: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      padding: '8px 16px'
+    }
   }),
 )
 
@@ -48,7 +55,7 @@ const MembersCreate: React.FC<Props> = (props: any) => {
     name: "",
     description: "",
     number: "",
-    image: "/images/default.png",
+    image: "/images/default.jpg",
   })
 
   const handleChange = (e: any) => {
@@ -62,8 +69,27 @@ const MembersCreate: React.FC<Props> = (props: any) => {
 
     const file: File | null = target.files !== null ? target.files.item(0) : null
    
-    setMember(member => ({ ...member, [target.name]: file }))
-        
+    setMember(member => ({ ...member, [target.name]: file }))   
+  }
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+
+    registerMember(member)
+      .then((res: any) => {
+        swal({
+          title: 'Good job!',
+          text: 'you add a new member bro!!',
+          icon: 'success',
+        })
+
+        setMember({
+          name: "",
+          description: "",
+          number: "",
+          image: "/images/default.jpg",
+        })
+      })
   }
 
   return (
@@ -72,45 +98,46 @@ const MembersCreate: React.FC<Props> = (props: any) => {
         <CardHeader 
           title="Register Member" 
           avatar={
-            <Avatar aria-label="recipe">
-              K
-            </Avatar>
+            <Avatar aria-label="recipe" src="/images/festival.png" />
           }
         />
-        <form onSubmit={e => {
-          e.preventDefault()
-          registerMember(member)
-        }}
-        >
+        <form onSubmit={e => handleSubmit(e)} >
           <CardContent className={classes.root}>
             <TextField
               id="name"
               label="Name"
               name="name"
-              placeholder="Kingyo taro"
+              placeholder="「覚悟」とは！！"
               multiline
+              fullWidth
               required
               value={member.name}
+              style={{ margin: 8 }}
               onChange={(e) => handleChange(e)}
             />
             <TextField
               id="number"
               label="Number"
               name="number"
-              placeholder="0"
+              placeholder="暗闇の荒野に"
               multiline
+              fullWidth
               value={member.number}
+              style={{ margin: 8 }}
               onChange={(e) => handleChange(e)}
             />
             <TextField
               id="description"
               label="Description"
               name="description"
-              placeholder="鉄砲玉"
+              placeholder="進むべき道を切り開くことだッ！"
               multiline
+              fullWidth
               value={member.description}
+              style={{ margin: 8 }}
               onChange={(e) => handleChange(e)}
             />
+            {/* <ImageUploader filesLimit={1} onChange={(e) => handleChangeFile(e)} /> */}
             <Input 
               id="image"
               name="image"
@@ -119,25 +146,33 @@ const MembersCreate: React.FC<Props> = (props: any) => {
               onChange={(e) => handleChangeFile(e)}
             />
           </CardContent>
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-          >
-            <CardActions>
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-              >
-                {loading ? <CircularProgress size={24} /> : "登録" }
-              </Button>
-            </CardActions>
-          </Box>
+          <CardActions className={classes.pullRight}>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              style={{ margin: 8 }}
+            >
+              {loading ? <CircularProgress size={24} /> : "登録" }
+            </Button>
+          </CardActions>
         </form>
       </Card>
     </Wrapper>
   )
 }
+
+
+const Wrapper = styled.section`
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 40px 0;
+`
+
+const ImageUploader = styled(DropzoneArea)`
+  margin: 20px auto;
+  width: 99%;
+`
 
 const mapStateToProps = (state: any) => {
   return {
@@ -148,7 +183,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    registerMember: (member: any) => dispatch(postMemberRequest(member))
+    registerMember: async (member: any) => dispatch(postMemberRequest(member))
   }
 }
 
