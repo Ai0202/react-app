@@ -56,6 +56,7 @@ const MemberList: React.FC<Props> = (props) => {
   const classes = useStyles()
 
   // 初回のみ実行で良いため
+  // TODO 画面遷移したときもしないといけない
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {getMembers()}, [])
 
@@ -65,19 +66,22 @@ const MemberList: React.FC<Props> = (props) => {
         <Grid item xs={12}>
           <PageTitle title="Member" />
         </Grid>
-        <Grid item className={classes.circleWrapper} xs={12}>
           {loading 
-            ? <CircularProgress size={120} color='inherit' />
+            ? 
+              <Grid item className={classes.circleWrapper} xs={12}>
+                <CircularProgress size={120} color='inherit' />
+              </Grid>  
             :
-            <Grid container justify="center" spacing={4}>
-              {members.map((v, i) => (
-                <Grid key={i} item>
-                  <Member member={v} />
+              <Grid item xs={12}>
+                <Grid container justify="center" spacing={4}>
+                  {members.map((v, i) => (
+                    <Grid key={i} item>
+                      <Member member={v} />
+                    </Grid>
+                  ))}
                 </Grid>
-              ))}
-            </Grid>
+              </Grid>
           }
-        </Grid>
       </Grid>
     </Wrapper>
   )
