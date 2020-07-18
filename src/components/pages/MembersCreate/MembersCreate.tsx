@@ -29,10 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
       width: '25ch',
     },
-    imageUpload: {
-      margin: '20px auto',
-      width: '99%',
-    },
     pullRight: {
       display: 'flex',
       justifyContent: 'flex-end',
@@ -64,12 +60,8 @@ const MembersCreate: React.FC<Props> = (props: any) => {
   }
 
   // 画像投稿
-  const handleChangeFile = (e: any) => {
-    const target: HTMLInputElement = e.target as HTMLInputElement
-
-    const file: File | null = target.files !== null ? target.files.item(0) : null
-   
-    setMember(member => ({ ...member, [target.name]: file }))   
+  const handleChangeFile = (files: any) => {
+    setMember(member => ({ ...member, image: files[0] }))   
   }
 
   const handleSubmit = (e: any) => {
@@ -137,14 +129,16 @@ const MembersCreate: React.FC<Props> = (props: any) => {
               style={{ margin: 8 }}
               onChange={(e) => handleChange(e)}
             />
-            {/* <ImageUploader filesLimit={1} onChange={(e) => handleChangeFile(e)} /> */}
-            <Input 
-              id="image"
-              name="image"
-              placeholder="image"
-              type="file"
-              onChange={(e) => handleChangeFile(e)}
-            />
+            {/* TODO styleのかえ方が不明 */}
+            <div style={{ margin: "10px auto", width: "98%"}}>
+              <DropzoneArea 
+                filesLimit={1} 
+                onChange={(files) => handleChangeFile(files)} 
+                dropzoneText="Drag and drop a image here or click"
+                acceptedFiles={['image/*']}
+                showFileNames
+              />
+            </div>
           </CardContent>
           <CardActions className={classes.pullRight}>
             <Button
