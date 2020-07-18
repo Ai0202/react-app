@@ -4,6 +4,9 @@ import Typography from "@material-ui/core/Typography"
 import { Card, CardMedia, CardContent, CardActions, IconButton } from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
+import { useDispatch } from "react-redux"
+
+import { deleteMemberRequest } from "../../../redux/modules/member"
 
 const useStyles = makeStyles({
   root: {
@@ -33,13 +36,19 @@ type Props = {
 
 export const Member: React.FC<Props> = ({member}: Props) => {
   const classes = useStyles()
+
+  const dispatch = useDispatch()
+
+  const deleteMember = () => {
+    dispatch(deleteMemberRequest({ id: '1'}))
+  }
   
   return (
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
         image={member.image}
-        title="Atsushi Ikeda"
+        title={member.name}
       />
       <CardContent>
         <Typography className={classes.title}  gutterBottom variant="h5" component="h4">
@@ -53,11 +62,10 @@ export const Member: React.FC<Props> = ({member}: Props) => {
         <IconButton className={classes.pullLeft}>
           <EditIcon />
         </IconButton>
-        <IconButton className={classes.pullLeft}>
+        <IconButton className={classes.pullLeft} onClick={deleteMember}>
           <DeleteIcon />
         </IconButton>
       </CardActions>
-
     </Card>
   )
 }

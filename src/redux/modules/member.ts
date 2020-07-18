@@ -5,6 +5,9 @@ export const GET_MEMBERS_FAIL = "members/fail"
 export const POST_MEMBER_REQUEST = "member/post/request"
 export const POST_MEMBER_SUCCESS = "member/post/success"
 export const POST_MEMBER_FAIL = "member/post/fail"
+export const DELETE_MEMBER_REQUEST = "member/delete/request"
+export const DELTE_MEMBER_SUCCESS = "member/delete/success"
+export const DELTE_MEMBER_FAIL = "member/delete/fail"
 
 type MembersRequest = {
   type: typeof GET_MEMBERS_REQUEST;
@@ -41,13 +44,35 @@ type PostMemberFail = {
   error: boolean;
 }
 
+type DeleteMemberRequest = {
+  type: typeof DELETE_MEMBER_REQUEST
+  payload: {
+    id: string
+  }
+}
+
+type DeleteMemberSuccess = {
+  type: typeof DELTE_MEMBER_SUCCESS
+  payload: {
+    members: Member[]
+  }
+}
+
+type DeleteMemberFail = {
+  type: typeof DELTE_MEMBER_FAIL
+  error: boolean
+}
+
 type Action = 
   | MembersRequest
   | MembersSuccess
   | MembersFail
   | PostMemberRequest
   | PostMemberSuccess
-  | PostMemberFail;
+  | PostMemberFail
+  | DeleteMemberRequest
+  | DeleteMemberSuccess
+  | DeleteMemberFail
 
 // Action Creators
 export function getMembersRequest(): MembersRequest {
@@ -92,6 +117,31 @@ export const postMemberFail = (): PostMemberFail => {
   return {
     type: POST_MEMBER_FAIL,
     error: true,
+  }
+}
+
+export const deleteMemberRequest = (payload: {
+  id: string
+}): DeleteMemberRequest => {
+  return {
+    type: DELETE_MEMBER_REQUEST,
+    payload
+  }
+}
+
+export const deleteMemberSuccess = (payload: {
+  members: Member[]
+}): DeleteMemberSuccess => {
+  return {
+    type: DELTE_MEMBER_SUCCESS,
+    payload
+  }
+}
+
+export const deleteMemberFail = (): DeleteMemberFail => {
+  return {
+    type: DELTE_MEMBER_FAIL,
+    error: false
   }
 }
 
@@ -155,6 +205,22 @@ export function reducer(state: State = INITIAL_STATE, action: Action): State {
       }
     }
     case POST_MEMBER_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+      }
+    }
+    case DELETE_MEMBER_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false,
+      }
+    }
+    case DELTE_MEMBER_SUCCESS: {
+      // filterで削除されたmemberを除く
+
       return {
         ...state,
         loading: false,

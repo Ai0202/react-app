@@ -3,9 +3,12 @@ import { getMembers as fetchMembers, postMember as postNewMember } from "../serv
 import { 
   getMembersSuccess, 
   postMemberSuccess, 
-  postMemberFail, 
+  postMemberFail,
+  deleteMemberSuccess,
+  deleteMemberFail,
   POST_MEMBER_REQUEST, 
-  GET_MEMBERS_REQUEST } from "../redux/modules/member"
+  GET_MEMBERS_REQUEST,
+  DELETE_MEMBER_REQUEST } from "../redux/modules/member"
 
 function* getMembers() {
   try {
@@ -45,6 +48,22 @@ function* postMember({ payload }: any) {
   }
 }
 
+function* deleteMember({ payload }: any) {
+  try {
+    // firestoreの内容削除
+    console.log('firebaseに通信')
+    
+    // storageの内容削除
+
+    // 削除後のデータ
+    const members = yield call(fetchMembers)
+
+    yield put(deleteMemberSuccess({ members }))
+  } catch (e) {
+    yield put(deleteMemberFail())
+  }
+}
+
 function* watchGetMembers() {
   // actionを実行してから、getMembersを実行
   yield takeEvery(GET_MEMBERS_REQUEST, getMembers)
@@ -54,7 +73,12 @@ function* watchCreateMember() {
   yield takeLatest(POST_MEMBER_REQUEST, postMember)
 }
 
+function* watchDeleteMember() {
+  yield takeLatest(DELETE_MEMBER_REQUEST, deleteMember)
+}
+
 export const userSagas = [
   fork(watchGetMembers),
-  fork(watchCreateMember)
+  fork(watchCreateMember),
+  fork(watchDeleteMember)
 ]
