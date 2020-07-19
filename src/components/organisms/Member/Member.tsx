@@ -51,10 +51,10 @@ export const Member: React.FC<Props> = ({ member }) => {
       />
       <CardContent>
         <Typography className={classes.title}  gutterBottom variant="h5" component="h4">
-          member.name
+          {member.name}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          member.description
+          {member.description}
         </Typography>
       </CardContent>
       <CardActions>
