@@ -26,7 +26,7 @@ export const getMembers = async () => {
     .get()
     .then(res => {
       res.forEach(member => {
-        members.push(member.data())
+        members.push({ id: member.id, ...member.data() })
       })
     })
   
@@ -122,6 +122,23 @@ export const declarationOfWar = async (opponent: any) => {
       tel,
       detail,
     })
+}
+
+export const deleteMember = async (id: string) => {
+  // transaction
+
+
+  // 画像の削除
+  // 画像の参照
+
+  // 画像の削除
+
+  // promise
+
+  firestore.collection("members").doc(id).delete().then(() => {
+
+  }).catch((e) => {
+  })
 }
 
 export default firebase

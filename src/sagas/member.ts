@@ -1,5 +1,8 @@
 import { call, put, takeLatest, takeEvery, fork } from "redux-saga/effects"
-import { getMembers as fetchMembers, postMember as postNewMember } from "../services/Firebase"
+import { 
+  getMembers as fetchMembers, 
+  postMember as postNewMember,
+  deleteMember as deleteMemberFromDb } from "../services/Firebase"
 import { 
   getMembersSuccess, 
   postMemberSuccess, 
@@ -49,13 +52,10 @@ function* postMember({ payload }: any) {
 }
 
 function* deleteMember({ payload }: any) {
-  try {
-    // firestoreの内容削除
-    console.log('firebaseに通信')
+  try {    
+    deleteMemberFromDb(payload.id)
     
-    // storageの内容削除
-
-    // 削除後のデータ
+    // 削除後のデータ取得
     const members = yield call(fetchMembers)
 
     yield put(deleteMemberSuccess({ members }))

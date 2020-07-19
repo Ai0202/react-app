@@ -147,6 +147,7 @@ export const deleteMemberFail = (): DeleteMemberFail => {
 
 // Initial state
 export type Member = {
+  id?: string;
   name: string;
   description: string;
   number: number;
@@ -163,6 +164,7 @@ export type State = {
 export const INITIAL_STATE = {
   members: [
     {
+      id: "",
       name: "******",
       description: "***********************",
       number: 0,

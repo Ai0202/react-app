@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ButtonHTMLAttributes } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import { Card, CardMedia, CardContent, CardActions, IconButton } from "@material-ui/core"
@@ -6,6 +6,7 @@ import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { useDispatch } from "react-redux"
 
+import { Member as MemberProps } from "../../../redux/modules/member"
 import { deleteMemberRequest } from "../../../redux/modules/member"
 
 const useStyles = makeStyles({
@@ -27,27 +28,25 @@ const useStyles = makeStyles({
 })
 
 type Props = {
-  member: {
-    name: string;
-    description: string;
-    image: string;
-  }
+  member: MemberProps
 }
 
-export const Member: React.FC<Props> = ({member}: Props) => {
+export const Member: React.FC<Props> = ({ member }) => {
   const classes = useStyles()
 
   const dispatch = useDispatch()
 
-  const deleteMember = () => {
-    dispatch(deleteMemberRequest({ id: '1'}))
+  const deleteMember = (e: any) => {
+    const id = e.target.value
+    
+    dispatch(deleteMemberRequest({ id }))
   }
   
   return (
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
-        image={member.image}
+        image={member.image as string}
         title={member.name}
       />
       <CardContent>
@@ -62,7 +61,8 @@ export const Member: React.FC<Props> = ({member}: Props) => {
         <IconButton className={classes.pullLeft}>
           <EditIcon />
         </IconButton>
-        <IconButton className={classes.pullLeft} onClick={deleteMember}>
+        {/* TODO クリックされたのが子要素の場合、valueとれない */}
+        <IconButton value={member.id} className={classes.pullLeft} onClick={e => deleteMember(e)}>
           <DeleteIcon />
         </IconButton>
       </CardActions>
