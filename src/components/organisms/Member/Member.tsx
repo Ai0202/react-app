@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes } from "react"
+import React, { useContext } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import { Card, CardMedia, CardContent, CardActions, IconButton } from "@material-ui/core"
@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux"
 
 import { Member as MemberProps } from "../../../redux/modules/member"
 import { deleteMemberRequest } from "../../../redux/modules/member"
+import { AuthContext } from "../../../contexts/Auth"
 
 const useStyles = makeStyles({
   root: {
@@ -33,13 +34,15 @@ type Props = {
 
 export const Member: React.FC<Props> = ({ member }) => {
   const classes = useStyles()
-
   const dispatch = useDispatch()
+  const { isSignedin } = useContext(AuthContext)
 
-  const deleteMember = (e: any) => {
-    const id = e.target.value
-    
-    dispatch(deleteMemberRequest({ id }))
+  const deleteMember = () => {    
+    dispatch(deleteMemberRequest({ id: member.id as string }))
+  }
+
+  const goToEditPage = () => {
+    console.log(member)
   }
   
   return (
@@ -57,15 +60,16 @@ export const Member: React.FC<Props> = ({ member }) => {
           {member.description}
         </Typography>
       </CardContent>
-      <CardActions>
-        <IconButton className={classes.pullLeft}>
-          <EditIcon />
-        </IconButton>
-        {/* TODO クリックされたのが子要素の場合、valueとれない */}
-        <IconButton value={member.id} className={classes.pullLeft} onClick={e => deleteMember(e)}>
-          <DeleteIcon />
-        </IconButton>
-      </CardActions>
+      {isSignedin && 
+        <CardActions>
+          <IconButton className={classes.pullLeft} onClick={goToEditPage}>
+            <EditIcon />
+          </IconButton>
+        <IconButton value={member.id} className={classes.pullLeft} onClick={deleteMember}>
+            <DeleteIcon />
+          </IconButton>
+        </CardActions>
+      }
     </Card>
   )
 }
