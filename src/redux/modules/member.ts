@@ -47,7 +47,7 @@ type PostMemberFail = {
 type DeleteMemberRequest = {
   type: typeof DELETE_MEMBER_REQUEST
   payload: {
-    id: string
+    member: Member
   }
 }
 
@@ -121,7 +121,7 @@ export const postMemberFail = (): PostMemberFail => {
 }
 
 export const deleteMemberRequest = (payload: {
-  id: string
+  member: Member
 }): DeleteMemberRequest => {
   return {
     type: DELETE_MEMBER_REQUEST,

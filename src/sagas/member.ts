@@ -46,7 +46,7 @@ function* postMember({ payload }: any) {
 
 function* deleteMember({ payload }: any) {
   try {    
-    deleteMemberFromDb(payload.id)
+    deleteMemberFromDb(payload.member)
     
     // 削除後のデータ取得
     const members = yield call(fetchMembers)

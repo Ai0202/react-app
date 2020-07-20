@@ -19,6 +19,7 @@ const config = {
 const firebaseApp = firebase.initializeApp(config)
 export const firestore = firebaseApp.firestore()
 export const firebaseAuth = firebaseApp.auth()
+const firebaseStorage = firebaseApp.storage()
 
 export const getMembers = async () => {
   const members: any[] = []
@@ -61,8 +62,7 @@ export const updateMember = async(member: Member) => {
 export const postFile = (file: File) => {
   const fileName = `members/${uuidv4()}`
 
-  const storage = firebaseApp.storage()
-  const storageRef = storage.ref()
+  const storageRef = firebaseStorage.ref()
   const uploadTask = storageRef.child(fileName).put(file)
 
   let filePath: any
@@ -148,20 +148,12 @@ export const declarationOfWar = async (opponent: any) => {
     })
 }
 
-export const deleteMember = async (id: string) => {
-  // transaction
-
-
-  // 画像の削除
-  // 画像の参照
-
-  // 画像の削除
-
-  // promise
-
-  firestore.collection("members").doc(id).delete().then(() => {
-
+export const deleteMember = async (member: Member) => {
+  // TODO transaction
+  firestore.collection("members").doc(member.id).delete().then(() => {
+    firebaseStorage.ref().child(member.fileName).delete()
   }).catch((e) => {
+    console.log(e);
   })
 }
 

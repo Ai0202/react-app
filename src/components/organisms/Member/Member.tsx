@@ -39,8 +39,8 @@ export const Member: React.FC<Props> = ({ member }) => {
   const history = useHistory()
   const { isSignedin } = useContext(AuthContext)
 
-  const deleteMember = () => {    
-    dispatch(deleteMemberRequest({ id: member.id as string }))
+  const deleteMember = () => {
+    dispatch(deleteMemberRequest({ member }))
   }
 
   const goToEditPage = () => {
