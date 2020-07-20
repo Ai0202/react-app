@@ -44,7 +44,7 @@ export const Member: React.FC<Props> = ({ member }) => {
   }
 
   const goToEditPage = () => {
-    history.push(`members/${member.number}/edit`)
+    history.push(`members/${member.id}/edit`)
   }
   
   return (

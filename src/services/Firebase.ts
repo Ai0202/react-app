@@ -34,8 +34,6 @@ export const getMembers = async () => {
 }
 
 export const getMemberDetail = async (id: string) => {
-  // TODO 正しいIDを渡せるようにする
-  id = 'UtxetZzEMFdlQOkcqiEV'
   let member: any
 
   await firestore.collection("members").doc(id)
@@ -120,13 +118,12 @@ export const postMember = async (member: Member) => {
     }, () => {
       // Upload completed successfully, now we can get the download URL
       uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-        firestore.collection("members")
-          .add({
-            name,
-            description,
-            number,
-            image: downloadURL,
-          })
+        firestore.collection("members").doc(String(number)).set({
+          name,
+          description,
+          number,
+          image: downloadURL,
+        })
       })
     }
   )

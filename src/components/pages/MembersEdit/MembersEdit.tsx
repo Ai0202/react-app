@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const MembersEdit: React.FC = () => {
   const classes = useStyles()
-  const { number } = useParams()
+  const { id } = useParams()
   const history = useHistory()
 
   const [member, setMember] = useState({
@@ -51,7 +51,7 @@ const MembersEdit: React.FC = () => {
   })
 
   useEffect(() => {
-    getMemberDetail(number)
+    getMemberDetail(id)
       .then(data => {
         setMember(member => ({...data}))
       })
