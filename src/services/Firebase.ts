@@ -117,12 +117,13 @@ export const postMember = async (member: Member) => {
       console.log('error')
     }, () => {
       // Upload completed successfully, now we can get the download URL
-      uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+      uploadTask.snapshot.ref.getDownloadURL().then(imagePath => {
         firestore.collection("members").doc(String(number)).set({
           name,
           description,
           number,
-          image: downloadURL,
+          imagePath,
+          fileName
         })
       })
     }

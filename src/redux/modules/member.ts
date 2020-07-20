@@ -151,7 +151,9 @@ export type Member = {
   name: string;
   description: string;
   number: number;
-  image: string | File;
+  image?: File;
+  imagePath: string;
+  fileName: string;
 }
 
 export type State = {
@@ -168,7 +170,8 @@ export const INITIAL_STATE = {
       name: "******",
       description: "***********************",
       number: 0,
-      image: "/images/default.png",
+      imagePath: "",
+      fileName: "/images/default.png",
     }
   ],
   loading: false,

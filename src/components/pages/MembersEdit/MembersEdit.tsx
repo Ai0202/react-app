@@ -47,7 +47,8 @@ const MembersEdit: React.FC = () => {
     name: "test",
     description: "",
     number: 0,
-    image: "/images/default.jpg",
+    imagePath: "",
+    fileName: "/images/default.jpg",
   })
 
   useEffect(() => {

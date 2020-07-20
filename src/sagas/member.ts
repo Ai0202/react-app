@@ -27,19 +27,12 @@ function* getMembers() {
 
 // watchCreateMemberのPOST_MEMBER_REQUESTの返り値がpayload
 function* postMember({ payload }: any) {
-  try {
-    const { name, description, number, image } = payload
-    
+  try {  
     // TODO storageとdb保存分けたかったけど、できず1つの関数にまとめたため、いずれ修正
     // const uploadedFileName = yield call(postFile, image)
     
     // firebaseにpost
-    const res = yield call(postNewMember, {
-      name,
-      description,
-      number,
-      image,
-    })
+    const res = yield call(postNewMember, payload)
     
     // actionを実行
     yield put(postMemberSuccess({ success: res }))

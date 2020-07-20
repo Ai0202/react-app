@@ -51,7 +51,7 @@ export const Member: React.FC<Props> = ({ member }) => {
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
-        image={member.image as string}
+        image={member.imagePath}
         title={member.name}
       />
       <CardContent>
