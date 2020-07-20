@@ -14,6 +14,7 @@ import { PrivateRoute } from "./PrivateRoute"
 import { GuestRoute } from "./GuestRoute"
 import { NotFound } from "../components/pages/NotFound"
 import { News } from "../components/pages/News"
+import MembersEdit from "../components/pages/MembersEdit"
 
 export const Routes = () => {
   return (
@@ -28,6 +29,7 @@ export const Routes = () => {
         <Route path={routes.news} component={News} />
         <GuestRoute path={routes.signin} children={Signin} />
         <PrivateRoute path={routes.memberCreate} children={MembersCreate} />
+        <PrivateRoute path={routes.memberEdit} children={MembersEdit} />
         <Route component={NotFound} />
       </Switch>
     </Router>

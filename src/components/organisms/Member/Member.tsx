@@ -5,6 +5,7 @@ import { Card, CardMedia, CardContent, CardActions, IconButton } from "@material
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
 
 import { Member as MemberProps } from "../../../redux/modules/member"
 import { deleteMemberRequest } from "../../../redux/modules/member"
@@ -35,6 +36,7 @@ type Props = {
 export const Member: React.FC<Props> = ({ member }) => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const history = useHistory()
   const { isSignedin } = useContext(AuthContext)
 
   const deleteMember = () => {    
@@ -42,7 +44,7 @@ export const Member: React.FC<Props> = ({ member }) => {
   }
 
   const goToEditPage = () => {
-    console.log(member)
+    history.push(`members/${member.number}/edit`)
   }
   
   return (
@@ -65,7 +67,7 @@ export const Member: React.FC<Props> = ({ member }) => {
           <IconButton className={classes.pullLeft} onClick={goToEditPage}>
             <EditIcon />
           </IconButton>
-        <IconButton value={member.id} className={classes.pullLeft} onClick={deleteMember}>
+          <IconButton className={classes.pullLeft} onClick={deleteMember}>
             <DeleteIcon />
           </IconButton>
         </CardActions>

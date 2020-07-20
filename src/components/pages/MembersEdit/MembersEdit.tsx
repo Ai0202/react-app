@@ -1,8 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
 import swal from "@sweetalert/with-react"
+import { withRouter } from "react-router-dom"
 
 import { DropzoneArea } from 'material-ui-dropzone'
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
@@ -14,8 +13,10 @@ import Avatar from "@material-ui/core/Avatar"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { useParams, useHistory } from "react-router-dom"
 
-import { postMemberRequest } from "../../../redux/modules/member"
+import { getMemberDetail, updateMember } from "../../../services/Firebase"
+import { routes } from "../../../url"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,22 +37,25 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-type Props = {
-  loading: boolean;
-  loaded: boolean;
-  registerMember: Function;
-}
-
-const MembersCreate: React.FC<Props> = (props: any) => {
-  const { loading, registerMember } = props
+const MembersEdit: React.FC = () => {
   const classes = useStyles()
+  const { number } = useParams()
+  const history = useHistory()
 
   const [member, setMember] = useState({
-    name: "",
+    id: "",
+    name: "test",
     description: "",
-    number: "",
+    number: 0,
     image: "/images/default.jpg",
   })
+
+  useEffect(() => {
+    getMemberDetail(number)
+      .then(data => {
+        setMember(member => ({...data}))
+      })
+  }, [])
 
   const handleChange = (e: any) => {
     const { name, value } = e.target
@@ -65,29 +69,24 @@ const MembersCreate: React.FC<Props> = (props: any) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
-
-    registerMember(member)
-      .then((res: any) => {
-        swal({
-          title: 'Good job!',
-          text: 'you add a new member bro!!',
-          icon: 'success',
-        })
-
-        setMember({
-          name: "",
-          description: "",
-          number: "",
-          image: "/images/default.jpg",
-        })
+    updateMember(member)
+    .then((res: any) => {
+      swal({
+        title: 'Good job!',
+        text: 'you add a new member bro!!',
+        icon: 'success',
       })
+      .then(() => {
+        history.push(routes.members)
+      })
+    })
   }
 
   return (
     <Wrapper>
       <Card>
         <CardHeader 
-          title="Register Member" 
+          title="Update Member" 
           avatar={
             <Avatar aria-label="recipe" src="/images/festival.png" />
           }
@@ -128,7 +127,6 @@ const MembersCreate: React.FC<Props> = (props: any) => {
               style={{ margin: 8 }}
               onChange={(e) => handleChange(e)}
             />
-            {/* TODO styleのかえ方が不明 */}
             <div style={{ margin: "10px auto", width: "98%"}}>
               <DropzoneArea 
                 filesLimit={1} 
@@ -146,7 +144,7 @@ const MembersCreate: React.FC<Props> = (props: any) => {
               type="submit"
               style={{ margin: 8 }}
             >
-              {loading ? <CircularProgress size={24} /> : "登録" }
+              {false ? <CircularProgress size={24} /> : "更新" }
             </Button>
           </CardActions>
         </form>
@@ -162,17 +160,4 @@ const Wrapper = styled.section`
   padding: 40px 0;
 `
 
-const mapStateToProps = (state: any) => {
-  return {
-    loading: state.member.loading,
-    loaded: state.member.loaded,
-  }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    registerMember: async (member: any) => dispatch(postMemberRequest(member))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MembersCreate)
+export default withRouter(MembersEdit)

@@ -33,6 +33,32 @@ export const getMembers = async () => {
   return members
 }
 
+export const getMemberDetail = async (id: string) => {
+  // TODO 正しいIDを渡せるようにする
+  id = 'UtxetZzEMFdlQOkcqiEV'
+  let member: any
+
+  await firestore.collection("members").doc(id)
+    .get()
+    .then(res => {
+      member = {id: res.id, ...res.data()}
+    })
+
+  return member
+}
+
+export const updateMember = async(member: Member) => {
+  const { id, name, number, description } = member
+  
+  // TODO 画像の更新方法を検討
+  firestore.collection("members").doc(id)
+    .update({
+      name,
+      number,
+      description
+    })
+}
+
 // TODO 画像を保存したpathを呼び出し元に返すやり方わからず未使用
 export const postFile = (file: File) => {
   const fileName = `members/${uuidv4()}`
