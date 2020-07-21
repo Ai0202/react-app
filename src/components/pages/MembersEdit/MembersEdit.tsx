@@ -89,7 +89,7 @@ const MembersEdit: React.FC = () => {
         <CardHeader 
           title="Update Member" 
           avatar={
-            <Avatar aria-label="recipe" src="/images/festival.png" />
+            <Avatar aria-label="recipe" src="/images/festival.jpg" />
           }
         />
         <form onSubmit={e => handleSubmit(e)} >

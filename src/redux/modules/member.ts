@@ -171,7 +171,7 @@ export const INITIAL_STATE = {
       description: "***********************",
       number: 0,
       imagePath: "",
-      fileName: "/images/default.png",
+      fileName: "/images/default.jpg",
     }
   ],
   loading: false,
