@@ -226,7 +226,6 @@ export function reducer(state: State = INITIAL_STATE, action: Action): State {
     case DELTE_MEMBER_SUCCESS: {
       // filterで削除されたmemberを除く
       const members = state.members.filter(member => member.id !== action.payload.member.id)
-      console.log(members)
       return {
         ...state,
         loading: false,

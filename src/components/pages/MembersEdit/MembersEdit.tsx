@@ -74,7 +74,7 @@ const MembersEdit: React.FC = () => {
     .then((res: any) => {
       swal({
         title: 'Good job!',
-        text: 'you add a new member bro!!',
+        text: 'you update the member! nice one bro!!',
         icon: 'success',
       })
       .then(() => {

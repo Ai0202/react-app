@@ -21,7 +21,7 @@ function* getMembers() {
     // actionを実行
     yield put(getMembersSuccess(members))
   } catch (e) {
-    console.log("error")
+    console.log(`Error ${e}`)
   }
 }
 
@@ -45,13 +45,12 @@ function* postMember({ payload }: any) {
 }
 
 function* deleteMember({ payload }: any) {
-  try {    
-    deleteMemberFromDb(payload.member)
+  try {
+    yield deleteMemberFromDb(payload.member)
 
-    yield put(deleteMemberSuccess(payload.member))
+    yield put(deleteMemberSuccess(payload))
   } catch (e) {
     console.log(e, '失敗')
-    
     yield put(deleteMemberFail())
   }
 }

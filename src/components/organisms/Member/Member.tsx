@@ -6,6 +6,7 @@ import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
+import swal from "@sweetalert/with-react"
 
 import { Member as MemberProps } from "../../../redux/modules/member"
 import { deleteMemberRequest } from "../../../redux/modules/member"
@@ -41,6 +42,13 @@ export const Member: React.FC<Props> = ({ member }) => {
 
   const deleteMember = () => {
     dispatch(deleteMemberRequest({ member }))
+
+    // TODO Sweetalertの表示を同期的に
+    swal({
+      title: 'Good job!',
+      text: 'you fired the member bro!!',
+      icon: 'success',
+    })
   }
 
   const goToEditPage = () => {
