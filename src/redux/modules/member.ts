@@ -54,7 +54,7 @@ type DeleteMemberRequest = {
 type DeleteMemberSuccess = {
   type: typeof DELTE_MEMBER_SUCCESS
   payload: {
-    members: Member[]
+    member: Member
   }
 }
 
@@ -130,7 +130,7 @@ export const deleteMemberRequest = (payload: {
 }
 
 export const deleteMemberSuccess = (payload: {
-  members: Member[]
+  member: Member
 }): DeleteMemberSuccess => {
   return {
     type: DELTE_MEMBER_SUCCESS,
@@ -225,11 +225,21 @@ export function reducer(state: State = INITIAL_STATE, action: Action): State {
     }
     case DELTE_MEMBER_SUCCESS: {
       // filterで削除されたmemberを除く
-
+      const members = state.members.filter(member => member.id !== action.payload.member.id)
+      console.log(members)
       return {
         ...state,
         loading: false,
         loaded: true,
+        members: [...members]
+      }
+    }
+    case DELTE_MEMBER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error: true,
       }
     }
     default: {

@@ -47,12 +47,11 @@ function* postMember({ payload }: any) {
 function* deleteMember({ payload }: any) {
   try {    
     deleteMemberFromDb(payload.member)
-    
-    // 削除後のデータ取得
-    const members = yield call(fetchMembers)
 
-    yield put(deleteMemberSuccess({ members }))
+    yield put(deleteMemberSuccess(payload.member))
   } catch (e) {
+    console.log(e, '失敗')
+    
     yield put(deleteMemberFail())
   }
 }
