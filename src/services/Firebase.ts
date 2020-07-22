@@ -59,13 +59,16 @@ export const updateMember = async(member: Member) => {
 }
 
 // TODO 画像を保存したpathを呼び出し元に返すやり方わからず未使用
-export const postFile = (file: File) => {
+export const postFile = async (image: File | undefined) => {
+
+  if (image === undefined) {
+    return "members/default.jpg"
+  }
+
   const fileName = `members/${uuidv4()}`
-
   const storageRef = firebaseStorage.ref()
-  const uploadTask = storageRef.child(fileName).put(file)
+  const uploadTask = storageRef.child(fileName).put(image)
 
-  let filePath: any
   uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
     (snapshot) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
@@ -81,22 +84,40 @@ export const postFile = (file: File) => {
       }
     }, (error) => {
       // TODO エラー
-      console.log('error')
+      console.log(`error: ${error}`)
     }, () => {
-      // Upload completed successfully, now we can get the download URL
-      filePath = uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => downloadURL)
-      return filePath
     }
   )
+
+  return fileName;
 }
 
+// TODO 画像投稿処理修正
+  // - 画像投稿を関数に切り出し
 export const postMember = async (member: Member) => {
-
   const { name, description, number, image } = member
-  const fileName = `members/${uuidv4()}`
 
-  const storage = firebaseApp.storage()
-  const storageRef = storage.ref()
+  let fileName = "members/default.jpg"
+  const storageRef = firebaseStorage.ref()
+
+  // 画像投稿なしの場合
+  if (image === undefined) {
+    const uploadTask = storageRef.child(fileName).getDownloadURL()
+      .then(imagePath => {
+        firestore.collection("members").doc(String(number)).set({
+          name,
+          description,
+          number,
+          imagePath,
+          fileName
+        })
+      })
+
+    return true
+  }
+
+  // 画像投稿ありの場合
+  fileName = `members/${uuidv4()}`
   const uploadTask = storageRef.child(fileName).put(image as File)
 
   uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -114,24 +135,26 @@ export const postMember = async (member: Member) => {
       }
     }, (error) => {
       // TODO エラー
-      console.log('error')
+      console.log(`error: ${error}`)
     }, () => {
-      // Upload completed successfully, now we can get the download URL
-      uploadTask.snapshot.ref.getDownloadURL().then(imagePath => {
-        firestore.collection("members").doc(String(number)).set({
-          name,
-          description,
-          number,
-          imagePath,
-          fileName
+      const uploadTask = storageRef.child(fileName).getDownloadURL()
+        .then(imagePath => {
+          firestore.collection("members").doc(String(number)).set({
+            name,
+            description,
+            number,
+            imagePath,
+            fileName
+          })
         })
-      })
     }
   )
 
   // TODO 非同期のためエラーが出てもtrueがかえる
   return true
 }
+
+
 
 export const declarationOfWar = async (opponent: any) => {
   // sleep処理
