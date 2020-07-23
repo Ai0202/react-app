@@ -216,6 +216,14 @@ export function reducer(state: State = INITIAL_STATE, action: Action): State {
         loaded: true,
       }
     }
+    case POST_MEMBER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        error: true,
+      }
+    }
     case DELETE_MEMBER_REQUEST: {
       return {
         ...state,

@@ -39,11 +39,12 @@ const useStyles = makeStyles((theme: Theme) =>
 type Props = {
   loading: boolean;
   loaded: boolean;
+  error: boolean;
   registerMember: Function;
 }
 
 const MembersCreate: React.FC<Props> = (props: any) => {
-  const { loading, registerMember } = props
+  const { loading, loaded, error, registerMember } = props
   const classes = useStyles()
 
   const [member, setMember] = useState({
@@ -68,6 +69,8 @@ const MembersCreate: React.FC<Props> = (props: any) => {
 
     registerMember(member)
       .then((res: any) => {
+        console.log(res)
+        
         swal({
           title: 'Good job!',
           text: 'you add a new member bro!!',
@@ -166,6 +169,7 @@ const mapStateToProps = (state: any) => {
   return {
     loading: state.member.loading,
     loaded: state.member.loaded,
+    error: state.member.error,
   }
 }
 
