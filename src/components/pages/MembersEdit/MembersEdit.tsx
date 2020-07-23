@@ -56,6 +56,7 @@ const MembersEdit: React.FC = () => {
       .then(data => {
         setMember(member => ({...data}))
       })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleChange = (e: any) => {

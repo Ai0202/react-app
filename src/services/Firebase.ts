@@ -102,7 +102,7 @@ export const postMember = async (member: Member) => {
 
   // 画像投稿なしの場合
   if (image === undefined) {
-    const uploadTask = storageRef.child(fileName).getDownloadURL()
+    storageRef.child(fileName).getDownloadURL()
       .then(imagePath => {
         firestore.collection("members").doc(String(number)).set({
           name,
@@ -137,7 +137,7 @@ export const postMember = async (member: Member) => {
       // TODO エラー
       console.log(`error: ${error}`)
     }, () => {
-      const uploadTask = storageRef.child(fileName).getDownloadURL()
+      storageRef.child(fileName).getDownloadURL()
         .then(imagePath => {
           firestore.collection("members").doc(String(number)).set({
             name,
